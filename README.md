@@ -11,6 +11,8 @@ Installer les dépendances:
 Lancer le serveur:
 `npm start`
 
+L'application se trouve sur `localhost:3000`
+
 ###Equipe projet
 Valentin ERNOUF
 Clément LOUSTAU
