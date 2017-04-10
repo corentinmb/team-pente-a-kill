@@ -23,10 +23,6 @@ function newBoard(){
   return b;
 }
 
-var boardElement = document.querySelector(".tenuki-board");
-var game = new tenuki.Game(boardElement);
-game.setup();
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var board = newBoard();
