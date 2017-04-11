@@ -13,7 +13,7 @@ function Game() {
   this.prolongation = false;
   this.finpartie = false;
   this.detailfinpartie = '';
-  this.numtour = 0;
+  this.numtour = 1;
   this.joueurcourant = 1;
 }
 
@@ -35,6 +35,10 @@ Game.prototype.playersOK = function(){
 
 Game.prototype.setJoueurcourant = function(num){
   this.joueurcourant = num;
+}
+
+Game.prototype.incrTour = function(){
+  this.numtour += 1;
 }
 
 // export the class

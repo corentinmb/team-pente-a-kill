@@ -4,6 +4,8 @@ function Player() {
   this.idJoueur = null;
   this.nomJoueur = null;
   this.numJoueur = null;
+  this.dernierCoupX = null;
+  this.dernierCoupY = null;
 }
 
 Player.prototype.setIdJoueur = function(id){
@@ -16,6 +18,11 @@ Player.prototype.setNomJoueur = function(nom){
 
 Player.prototype.setNumJoueur = function(num){
   this.numJoueur = num;
+};
+
+Player.prototype.setDernierCoup = function(x,y){
+  this.dernierCoupX = x;
+  this.dernierCoupY = y;
 };
 
 // export the class

@@ -19,7 +19,7 @@ Board.prototype.setPion = function(x,y,numjoueur){
 	this.board[x][y] = numjoueur;
 }
 
-Board.prototype.Pionhere = function(x,y){
+Board.prototype.pionHere = function(x,y){
 	if (this.board[x][y] == 0){
 		return false;
 	}
