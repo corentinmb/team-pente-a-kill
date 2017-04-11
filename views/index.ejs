@@ -6,37 +6,14 @@
         Hello
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="https://aprescott.github.io/tenuki.js/build/tenuki.css">
-    <script src="https://aprescott.github.io/tenuki.js/build/tenuki.js"></script>
-    <script>
-        var socket = io.connect('http://localhost:8080');
-        socket.on('news', function(data) {
-            console.log(data);
-            socket.emit('my other event', {
-                my: 'data'
-            });
-        });
-    </script>
 </head>
 
 <body>
-    <div class="tenuki-board tenuki-board-textured" data-include-coordinates="true"></div>
-
-    <script>
-        var boardElement = document.querySelector(".tenuki-board");
-        var game = new tenuki.Game(boardElement);
-        game.setup();
-        game.playAt(2, 2)
-
-        game.playAt(3, 2)
-
-        game.playAt(4, 2)
-
-        game.playAt(2, 1)
-
-        game.playAt(2, 0)
-    </script>
+    <h1>Hello</h1>
+    <p>Hello
+    </p>
+    <p>La plateau se trouve <a href="/board">ici</a></p>
+    <p>Les endpoints de l'API de Montpellier sont implémentés (/connect, /play, /turn)</p>
 </body>
 
 </html>

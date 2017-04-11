@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Hello
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://aprescott.github.io/tenuki.js/build/tenuki.css">
+    <script src="https://aprescott.github.io/tenuki.js/build/tenuki.js"></script>
+</head>
+
+<body>
+    <div class="tenuki-board tenuki-board-textured" data-include-coordinates="true"></div>
+
+    <script>
+        var boardElement = document.querySelector(".tenuki-board");
+        var game = new tenuki.Game(boardElement);
+        game.setup();
+        game.playAt(2, 2)
+
+        game.playAt(3, 2)
+
+        game.playAt(4, 2)
+
+        game.playAt(2, 1)
+
+        game.playAt(2, 0)
+    </script>
+</body>
+
+</html>
