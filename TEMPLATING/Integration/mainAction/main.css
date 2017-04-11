@@ -1,0 +1,49 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:100,400,700);
+body {
+  background-color: #18415F;
+  height: 90vh;
+  margin-bottom: 2% !important;
+  font-family: Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif; }
+  body nav {
+    height: 150px !important;
+    background-color: transparent;
+    box-shadow: none !important; }
+    body nav .nav-wrapper {
+      margin-top: 20px; }
+      body nav .nav-wrapper .player1 {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-justify-content: space-around;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center; }
+        body nav .nav-wrapper .player1 img {
+          height: 120px; }
+        body nav .nav-wrapper .player1 h3 {
+          font-size: 2em; }
+      body nav .nav-wrapper .player2 {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-justify-content: space-around;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center; }
+        body nav .nav-wrapper .player2 img {
+          height: 120px; }
+        body nav .nav-wrapper .player2 h3 {
+          font-size: 2em; }
+      body nav .nav-wrapper .counter {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex; }
+        body nav .nav-wrapper .counter .clock-item .inner {
+          width: 50%; }
+        body nav .nav-wrapper .counter .text {
+          margin-top: none;
+          top: 12%; }
