@@ -1,22 +1,12 @@
 var Player = require('../models/playerModel.js');
+var Board = require('../models/boardModel.js');
 
 // Constructor
 function Game() {
   // always initialize all instance properties
   this.player1 = new Player();
   this.player2 = new Player();
-  this.board = null;
-}
-
-Game.prototype.initBoard = function(){
-  var SIZE = 19;
-  this.board = new Array();
-  for (var i = 0; i < SIZE; i++) {
-    this.board[i] = new Array();
-    for (var j = 0; j < SIZE; j++) {
-      this.board[i][j] = {stone : null};
-    }
-  }
+  this.board = new Board();
 }
 
 Game.prototype.setPlayer1 = function(id,nom){
