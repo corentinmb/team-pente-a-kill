@@ -13,7 +13,7 @@ Lancer le serveur:
 
 L'application se trouve sur `localhost:3000`
 
-###Equipe projet
+### Equipe projet
 Valentin ERNOUF
 Clément LOUSTAU
 Corentin MOREAU
