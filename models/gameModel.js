@@ -1,12 +1,20 @@
 var Player = require('../models/playerModel.js');
 var Board = require('../models/boardModel.js');
 
+
 // Constructor
 function Game() {
   // always initialize all instance properties
   this.player1 = new Player();
   this.player2 = new Player();
   this.board = new Board();
+  this.nbtenaillesj1 = 0;
+  this.nbtenaillesj2 = 0;
+  this.prolongation = false;
+  this.finpartie = false;
+  this.detailfinpartie = '';
+  this.numtour = 0;
+  this.dernierjoueur = null;
 }
 
 Game.prototype.setPlayer1 = function(id,nom,num){
@@ -24,6 +32,13 @@ Game.prototype.setPlayer2 = function(id,nom,num){
 Game.prototype.playersOK = function(){
   (this.player1.idJoueur && this.player2.idJoueur) ? true : false;
 };
+
+Game.prototype.aquiletour = function(firsttour){
+  if (firsttour == true){
+
+  }
+
+}
 
 // export the class
 module.exports = Game;
