@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+        <link rel="stylesheet" href="./Library/css/demo.css">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Jeu de pente</title>
+    </head>
+    <body>
+      <nav>
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s4 player1">
+              <img src="../svg/player1.svg" alt="PLAYER ONE">
+              <h3>IA Player 1</h3>
+            </div>
+            <div class="col s4 counter">
+              <div class="countdown countdown-container container">
+                  <div class="clock row">
+                      <div class="clock-item clock-seconds countdown-time-value col-sm-6 col-md-3">
+                          <div class="wrap">
+                              <div class="inner">
+                                  <div id="canvas-seconds" class="clock-canvas"></div>
+                                  <div class="text">
+                                      <p class="val">0</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                <div class="countdown countdown-container container">
+                    <div class="clock row">
+                        <div class="clock-item clock-minutes countdown-time-value col-sm-6 col-md-3">
+                            <div class="wrap">
+                                <div class="inner">
+                                    <div id="canvas-minutes" class="clock-canvas"></div>
+                                    <div class="text">
+                                        <p class="val">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4 player2">
+              <h3>IA Player 2</h3>
+              <img src="../svg/player2.svg" alt="PLAYER TWO">
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+      <script type="text/javascript" src="./Library/js/kinetic.js"></script>
+      <script type="text/javascript" src="./Library/js/countdownMinute.js"></script>
+      <script type="text/javascript" src="./Library/js/jquery.final-countdown.js"></script>
+      <script type="text/javascript">
+      	$('.countdown').final_countdown({
+            // 'start': 1491913548,
+            // 'end': 1491913558,
+            // 'now': 1491913558
+
+            'start': 1362139200,
+            'end': 1388461320,
+            'now': 1387461319
+        });
+        	$('.countdownS').final_countdown_secondes({
+              'startS': 1491913548,
+              'endS': 1491342348,
+              'nowS': 1491913618
+          });
+      </script>
+    </body>
+</html>

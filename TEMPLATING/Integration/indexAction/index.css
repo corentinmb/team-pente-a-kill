@@ -1,0 +1,109 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:100,400,700);
+body {
+  background-color: #18415F;
+  height: 90vh;
+  margin: 2% !important;
+  font-family: Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif; }
+  body .blurred-bg {
+    /*#2579B1;*/
+    background-color: rgba(255, 255, 255, 0.3);
+    background-repeat: no-repeat;
+    background-attachment: fixed; }
+  body .box {
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    body .box .content .title {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center; }
+      body .box .content .title img {
+        height: 70px;
+        margin-right: 40px; }
+      body .box .content .title h1 {
+        color: #FFED00;
+        height: 80px;
+        font-size: 4em; }
+    body .box .content .player {
+      height: 370px;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center; }
+      body .box .content .player .player1 {
+        margin-right: 12%; }
+      body .box .content .player .player2 {
+        margin-left: 12%; }
+    body .box .content .bouton {
+      background-color: transparent;
+      border: 2px #FFED00 solid;
+      color: #FFED00; }
+      body .box .content .bouton.waves-effect {
+        -webkit-tap-highlight-color: #FFED00 !important; }
+  body h1, body h2, body a, body p {
+    color: white;
+    font-weight: 100; }
+    .tinted body h1, .tinted body h2, .tinted body a, .tinted body p {
+      color: black; }
+  body h2 {
+    font-size: 14px; }
+  body p {
+    margin: 20px; }
+    body p.related {
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #444; }
+      body p.related a {
+        font-weight: 700;
+        text-decoration: none; }
+        body p.related a:hover {
+          text-decoration: underline; }
+
+@media only screen and (max-width: 600px) {
+  body {
+    height: 89vh;
+    margin: 2% !important; }
+    body .box {
+      width: 100%;
+      border: 1px solid rgba(1, 255, 255, 0.3);
+      text-align: center;
+      box-sizing: border-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center; }
+      body .box .content .title img {
+        height: 50px;
+        margin-right: 40px; }
+      body .box .content .title h1 {
+        height: 50px;
+        font-size: 2.3em; }
+      body .box .content .player {
+        height: 320px;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center; }
+        body .box .content .player .player1 {
+          margin-right: 12%; }
+        body .box .content .player .player2 {
+          margin-left: 12%; } }
