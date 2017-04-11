@@ -14,7 +14,7 @@ function Game() {
   this.finpartie = false;
   this.detailfinpartie = '';
   this.numtour = 0;
-  this.dernierjoueur = null;
+  this.joueurcourant = 1;
 }
 
 Game.prototype.setPlayer1 = function(id,nom,num){
@@ -33,11 +33,8 @@ Game.prototype.playersOK = function(){
   (this.player1.idJoueur && this.player2.idJoueur) ? true : false;
 };
 
-Game.prototype.aquiletour = function(firsttour){
-  if (firsttour == true){
-
-  }
-
+Game.prototype.setJoueurcourant = function(num){
+  this.joueurcourant = num;
 }
 
 // export the class

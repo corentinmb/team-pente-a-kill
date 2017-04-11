@@ -16,7 +16,7 @@ router.get('/connect/:groupName', function(req, res, next) {
     game = new Game();
     game.setPlayer1(Math.floor((Math.random() * 1000) + 1),req.params.groupName,1);
     res.json({code : 200,
-              numJoueur : game.player1.nomJoueur,
+              numJoueur : game.player1.numJoueur,
               idJoueur : game.player1.idJoueur,
               nomJoueur : game.player1.nomJoueur
             })
@@ -37,9 +37,11 @@ router.get('/connect/:groupName', function(req, res, next) {
 
 /* GET play */
 router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
-	if(req.params.idJoueur == game.player2.idJoueur || req.params.idJoueur == game.player1.idJoueur){
+	if(((req.params.idJoueur == game.player2.idJoueur) && (game.player2.numJoueur == game.joueurcourant))||((req.params.idJoueur == game.player1.idJoueur) && (game.player1.numJoueur == game.joueurcourant))){
 		if (game.board.Pionhere(req.params.x,req.params.y) == false){
-		  game.board.setPion(req.params.x,req.params.y,1);
+		  game.board.setPion(req.params.x,req.params.y,game.joueurcourant);
+		  if (game.joueurcourant == 1) {game.setJoueurcourant(2);}
+      else{game.setJoueurcourant(1)}
 		  res.send('Pion bien placé');
 		}
 		else{
