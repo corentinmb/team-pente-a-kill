@@ -14,14 +14,23 @@ router.get('/connect/:groupName', function(req, res, next) {
   if(!game){
     game = new Game();
     game.setPlayer1(Math.floor((Math.random() * 1000) + 1),req.params.groupName);
-    res.json(game)
+    res.json({code : 200,
+              numJoueur : 1,
+              idJoueur : game.player1.idJoueur,
+              nomJoueur : game.player1.nomJoueur
+            })
   }
   else{
     if(game.player1.idJoueur && !game.player2.idJoueur){
       game.setPlayer2(Math.floor((Math.random() * 1000) + 1),req.params.groupName);
-      res.json(game)
+      res.json({"code" : 200,
+                "numJoueur" : 2,
+                "idJoueur" : game.player2.idJoueur,
+                "nomJoueur" : game.player2.nomJoueur
+              })
     }
-    res.send(401);
+    game.initBoard();
+    res.sendStatus(401);
   }
 });
 
