@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Game = require('../models/gameModel.js');
 var game = null;
+var id1 = null;
 
 
 /* GET home page. */
@@ -13,7 +14,9 @@ router.get('/', function(req, res, next) {
 router.get('/connect/:groupName', function(req, res, next) {
   if(!game){
     game = new Game();
-    game.setPlayer1(Math.floor((Math.random() * 1000) + 1),req.params.groupName,1, null, null);
+    //id1
+    id1 = Math.floor((Math.random() * 1000) + 1);
+    game.setPlayer1(id1,req.params.groupName,1, null, null);
     res.json({code : 200,
               numJoueur : game.player1.numJoueur,
               idJoueur : game.player1.idJoueur,
@@ -22,7 +25,13 @@ router.get('/connect/:groupName', function(req, res, next) {
   }
   else{
     if(game.player1.idJoueur && !game.player2.idJoueur){
-      game.setPlayer2(Math.floor((Math.random() * 1000) + 1),req.params.groupName,2,null,null);
+      //id2
+      id2=Math.floor((Math.random() * 1000) + 1);
+      //Les deux ids doivent être différents
+      while(id1 == id2){
+        id2=Math.floor((Math.random() * 1000) + 1);
+      }
+      game.setPlayer2(id2,req.params.groupName,2,null,null);
       game.board.initBoard();
       res.json({"code" : 200,
                 "numJoueur" : game.player2.numJoueur,
@@ -50,7 +59,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
         game.setJoueurcourant(1)
       }
 
-		  res.send('Pion bien placé');
+		  res.sendStatus(200);
 		}
 		else{
 			res.sendStatus(406);
