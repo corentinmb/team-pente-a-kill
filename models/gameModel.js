@@ -9,14 +9,16 @@ function Game() {
   this.board = new Board();
 }
 
-Game.prototype.setPlayer1 = function(id,nom){
+Game.prototype.setPlayer1 = function(id,nom,num){
   this.player1.setIdJoueur(id);
   this.player1.setNomJoueur(nom);
+  this.player1.setNumJoueur(num);
 };
 
-Game.prototype.setPlayer2 = function(id,nom){
+Game.prototype.setPlayer2 = function(id,nom,num){
   this.player2.setIdJoueur(id);
   this.player2.setNomJoueur(nom);
+  this.player2.setNumJoueur(num);
 };
 
 Game.prototype.playersOK = function(){
