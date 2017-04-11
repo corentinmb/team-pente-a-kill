@@ -20,7 +20,7 @@ Board.prototype.setPion = function(x,y,numjoueur){
 }
 
 Board.prototype.Pionhere = function(x,y){
-	if (this.board[x][y] != 0){
+	if (this.board[x][y] == 0){
 		return false;
 	}
 	else{
