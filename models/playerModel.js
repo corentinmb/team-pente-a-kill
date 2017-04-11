@@ -3,7 +3,7 @@ function Player() {
   // always initialize all instance properties
   this.idJoueur = null;
   this.nomJoueur = null;
-  this.numJoueur = null,
+  this.numJoueur = null;
 }
 
 Player.prototype.setIdJoueur = function(id){
