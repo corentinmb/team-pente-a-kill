@@ -3,6 +3,7 @@ var router = express.Router();
 var Game = require('../models/gameModel.js');
 var game = null;
 var id1 = null;
+var id2 = null;
 
 
 /* GET home page. */
