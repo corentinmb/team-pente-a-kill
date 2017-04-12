@@ -46,24 +46,29 @@ router.get('/connect/:groupName', function(req, res, next) {
 /* GET play */
 router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
 	if(((req.params.idJoueur == game.player2.idJoueur) && (game.player2.numJoueur == game.joueurcourant))||((req.params.idJoueur == game.player1.idJoueur) && (game.player1.numJoueur == game.joueurcourant))){
-		if (game.board.pionHere(req.params.x,req.params.y) == false){
-      game.incrTour();
-		  game.board.setPion(req.params.x,req.params.y,game.joueurcourant);
-      //Set dernier coup et à qui de jouer
-      if(game.joueurcourant == 1){
-        game.player2.setDernierCoup(req.params.x,req.params.y);
-        game.setJoueurcourant(2);
-      }
-      else{
-        game.player1.setDernierCoup(req.params.x,req.params.y);
-        game.setJoueurcourant(1)
-      }
+    if (req.params.x>0 && req.params.x<20 && req.params.y>0 && req.params.y<20){
+  		if ((game.board.pionHere(req.params.x-1,req.params.y-1) == false)){
+        game.incrTour();
+  		  game.board.setPion(req.params.x-1,req.params.y-1,game.joueurcourant);
+        //Set dernier coup et à qui de jouer
+        if(game.joueurcourant == 1){
+          game.player2.setDernierCoup(req.params.x,req.params.y);
+          game.setJoueurcourant(2);
+        }
+        else{
+          game.player1.setDernierCoup(req.params.x,req.params.y);
+          game.setJoueurcourant(1)
+        }
 
-		  res.sendStatus(200);
-		}
-		else{
-			res.sendStatus(406);
-		}
+  		  res.sendStatus(200);
+  		}
+  		else{
+  			res.sendStatus(406);
+  		}
+    }
+    else{
+      res.sendStatus(406);
+    }
 	}
 	else{
 		res.sendStatus(401);
