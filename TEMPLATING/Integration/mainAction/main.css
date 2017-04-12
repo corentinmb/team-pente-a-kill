@@ -45,6 +45,15 @@ body {
         body nav .nav-wrapper .counter .clock-item .inner {
           width: 42%;
           margin: 0 auto; }
+          body nav .nav-wrapper .counter .clock-item .inner .info {
+            margin-top: -10px;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            font-size: 14px; }
         body nav .nav-wrapper .counter .text {
           margin-top: none;
           top: 9%; }

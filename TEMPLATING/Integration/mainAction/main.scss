@@ -42,6 +42,12 @@ body{
         .clock-item .inner{
           width: 42%;
           margin: 0 auto;
+          .info{
+            margin-top: -10px;
+            display: flex;
+            justify-content: center;
+            font-size: 14px;
+          }
         }
         .text{
           margin-top: none;
