@@ -49,11 +49,16 @@
         }
 
         function arrayToTable(tableData) {
-            var table = $('<table></table>');
+            var table = $('<table cellpadding="0" cellspacing="0"></table>');
             $(tableData).each(function(i, rowData) {
                 var row = $('<tr></tr>');
                 $(rowData).each(function(j, cellData) {
-                    row.append($('<td onClick="clickOnCell(' + i + ',' + j + ')">' + cellData + '</td>'));
+                    if (cellData == 0)
+                        row.append($('<td onClick="clickOnCell(' + i + ',' + j + ')"><img src="https://raw.githubusercontent.com/jobslong/go-game/master/line.png"/></td>'));
+                    if (cellData == 1)
+                        row.append($('<td onClick="clickOnCell(' + i + ',' + j + ')"><div class="circleb"></div></td>'));
+                    if (cellData == 2)
+                        row.append($('<td onClick="clickOnCell(' + i + ',' + j + ')"><div class="circlew"></div></td>'));
                 });
                 table.append(row);
             });
@@ -61,10 +66,14 @@
         }
 
         function setData(result) {
-            var mydata = eval(result.tableau.board);
+            var mydata = eval(result);
             if (mydata) {
-                var table = arrayToTable(mydata);
+                var table = arrayToTable(mydata.tableau.board);
                 $("#board").html(table);
+                if (mydata.status == 1)
+                    $("#whoPlays").html("A toi de jouer !");
+                else
+                    $("#whoPlays").html("Merci de patienter...");
             } else {
                 $("#board").html("En attente d'un autre joueur...");
             }
@@ -72,6 +81,7 @@
 
         refreshData(setData);
     </script>
+    <p id="whoPlays"></p>
     <div id="board"></div>
 </body>
 
