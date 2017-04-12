@@ -47,7 +47,7 @@ router.get('/connect/:groupName', function(req, res, next) {
         game.setJoueurcourant(2);
       }
 
-      res.json({"code" : 200,
+      return res.json({"code" : 200,
                 "numJoueur" : game.player2.numJoueur,
                 "idJoueur" : game.player2.idJoueur,
                 "nomJoueur" : game.player2.nomJoueur
@@ -102,7 +102,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                 }
                 else{
                   return false;
-                }  
+                }
               }
               if (direction == "west"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0)){
@@ -111,7 +111,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                 }
                 else{
                   return false;
-                }  
+                }
               }
               if (direction == "northEast"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
@@ -138,7 +138,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                 }
                 else{
                   return false;
-                }  
+                }
               }
               if (direction == "northWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
@@ -156,7 +156,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               console.log("PASSE1");
               if (this.getPieceRelative("north",i)) {
                 north++;
-              } 
+              }
               else{
                 break;
               }
@@ -213,7 +213,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               else{
                 break;
-              }  
+              }
             }
             for (var i = 1; i < 5; i ++) {
               console.log("PASSE8");
@@ -286,7 +286,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
                   console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
-                } 
+                }
               }
               if (direction == "northWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){

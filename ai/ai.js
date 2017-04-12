@@ -25,14 +25,18 @@ function init() {
 
 function connect() {
     log.info("Connexion de l'IA...")
-    reqConnexion();
+    reqConnexion(success);
 }
 
-function reqConnexion() {
+function success(b){
+  log.info("IA connectée avec succès !")
+  IAconfig.data = b;
+}
+
+function reqConnexion(callback) {
     request(IAconfig.adresseAPI + "/connect/" + IAconfig.nomEquipe, function(error, response, body) {
         if (response && response.statusCode == 200) {
-            log.info("IA connectée avec succès !")
-            IAconfig.data = body;
+            callback(body);
         } else {
             process.on('exit', (code) => {
                 log.error('Erreur de connexion à l\'API');
