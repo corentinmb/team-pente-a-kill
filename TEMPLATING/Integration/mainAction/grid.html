@@ -1,0 +1,48 @@
+    <div class="tenuki-board tenuki-board-textured" data-include-coordinates="true"></div>
+    <div id="board"></div>
+    
+    <script>
+        var boardElement = document.querySelector(".tenuki-board");
+        var game = new tenuki.Game(boardElement);
+        /*game.setup();
+        game.playAt(2, 2)
+        game.playAt(3, 2)
+        game.playAt(4, 2)
+        game.playAt(2, 1)
+        game.playAt(2, 0)*/
+        function refreshData(callback) {
+            var intervalHolder = setInterval(function() {
+                $.ajax({
+                    url: "http://localhost:3000/turn/" + <%= id %>,
+                    success: function(data) {
+                        callback(data);
+                    },
+                    error: function() {
+                        clearInterval(intervalHolder);
+                        window.location.href = "http://localhost:3000";
+                    }
+                });
+            }, 0.5); //0.5 seconds
+        }
+        function arrayToTable(tableData) {
+            var table = $('<table></table>');
+            $(tableData).each(function(i, rowData) {
+                var row = $('<tr></tr>');
+                $(rowData).each(function(j, cellData) {
+                    row.append($('<td>' + cellData + '</td>'));
+                });
+                table.append(row);
+            });
+            return table;
+        }
+        function setData(result) {
+            var mydata = eval(result.tableau.board);
+            if (mydata) {
+                var table = arrayToTable(mydata);
+                $("#board").html(table);
+            } else {
+                $("#board").html("En attente d'un autre joueur...");
+            }
+        }
+        refreshData(setData);
+    </script>
