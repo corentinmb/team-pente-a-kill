@@ -404,7 +404,7 @@ router.get('/turn/:idJoueur', function(req, res, next) {
           "prolongation" : game.prolongation,
           "finPartie" : game.finpartie,
           "detailFinPartie" : game.detailfinpartie,
-          "numTour" : game.numtour,
+          "numTour" : game.numTour,
           "code" : 200
             })
       }

@@ -10,7 +10,6 @@ var IAconfig = {
 
 var finPartie = false;
 
-
 function init() {
     if (process.argv[2] && process.argv[3]) {
         IAconfig.adresseAPI = process.argv[2];
@@ -45,9 +44,7 @@ function printInConsole(b){
 }
 
 function play(x,y){
-  request(IAconfig.adresseAPI + "/play/" + x + "/" + y + "/" + IAconfig.dataConnect.idJoueur, function(error, response, body) {
-  });
-
+  request(IAconfig.adresseAPI + "/play/" + x + "/" + y + "/" + IAconfig.dataConnect.idJoueur);
 }
 
 function turn(callback){
@@ -65,29 +62,35 @@ function getRand(min, max) {
   return Math.floor(Math.random() * (max - min +1)) + min;
 }
 
+function caseDisponible(x,y){
+  return IAconfig.dataTurn.tableau[x][y] == 0 ? true : false;
+}
+
 function move(b){
-  if(b.status == 1){
-    // C'est a moi (l'IA) de jouer
-    log.info("A moi de jouer... (Tour " + b.numTour)
-    if(b.numTour == 1){
-      // Ici on a pas le choix... On joue au centre
-      log.info("Tour 1: Je joue au centre...")
-      play(9,9);
-    }
-    if (b.numTour == 2){
-      var x = getRand(6,12);
-      var y = getRand(6,12);
-      log.info("Tour 2: Je joue dans le cadre du milieu en " + x + ";" + y + "...")
-      play(x,y);
-    }
-    if (b.numTour > 2){
-      var x = getRand(0,18);
-      var y = getRand(0,18);
-      log.info("Tour " + b.numTour + ": Je joue dans le cadre du milieu en " + x + ";" + y + "...")
-      play(x,y);
+  if(!b.finPartie){
+    if(b.status == 1){
+      // C'est a moi (l'IA) de jouer
+      log.info("A moi de jouer... (Tour " + b.numTour + ")")
+      if(b.numTour == 1){
+        // Ici on a pas le choix... On joue au centre
+        log.info("Tour 1: Je joue au centre...")
+        play(9,9);
+      } else if (b.numTour == 2){
+        var x = getRand(6,12);
+        var y = getRand(6,12);
+        log.info("Tour 2: Je joue dans le cadre du milieu en " + x + ";" + y + "...")
+        play(x,y);
+      } else if (b.numTour > 2){
+        var x = getRand(0,18);
+        var y = getRand(0,18);
+        log.info("Tour " + b.numTour + ": Je joue en " + x + ";" + y + "...")
+        play(x,y);
+      }
+    } else {
+      log.info("Attente...")
     }
   } else {
-    log.info("Attente...")
+    finPartie = true;
   }
 }
 
@@ -95,11 +98,12 @@ function move(b){
 
 if (init()) {
     connect(printInConsole);
-    if(!finPartie){
       var intervalHolder = setInterval(function() {
-        turn(move)
+        if(!finPartie){
+          turn(move)
+        } else {
+          clearInterval(intervalHolder);
+        }
       },500);
-    } else {
-      console.log("fin")
-    }
+    log.info("Partie terminée.")
 }

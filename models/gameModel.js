@@ -13,7 +13,7 @@ function Game() {
   this.prolongation = false;
   this.finpartie = false;
   this.detailfinpartie = '';
-  this.numtour = 1;
+  this.numTour = 1;
   this.joueurcourant = null;
 }
 
@@ -38,7 +38,7 @@ Game.prototype.setJoueurcourant = function(num){
 }
 
 Game.prototype.incrTour = function(){
-  this.numtour += 1;
+  this.numTour += 1;
 }
 
 Game.prototype.incrNbtenaillesj1 = function(){
