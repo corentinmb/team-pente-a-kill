@@ -39,8 +39,12 @@ body{
       }
       .counter{
         display: flex;
+        .countdown-container{
+          display: flex;
+          justify-content: center;
+        }
         .clock-item .inner{
-          width: 50%;
+          width: 100%;
         }
         .text{
           margin-top: none;

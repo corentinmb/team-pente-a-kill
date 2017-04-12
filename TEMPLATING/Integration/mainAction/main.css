@@ -42,8 +42,15 @@ body {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex; }
+        body nav .nav-wrapper .counter .countdown-container {
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center; }
         body nav .nav-wrapper .counter .clock-item .inner {
-          width: 50%; }
+          width: 100%; }
         body nav .nav-wrapper .counter .text {
           margin-top: none;
           top: 12%; }
