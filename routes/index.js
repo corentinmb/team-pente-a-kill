@@ -244,12 +244,71 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             }
 
             directions = ['north', 'northEast', 'east', 'southEast', 'south', 'southWest', 'west', 'northWest'];
+
+            getNumPion = function(direction, distance) {
+              if (direction == "north"){
+                if ((parseInt(req.params.y)-parseInt(distance) < 19) && (parseInt(req.params.y)-parseInt(distance) >= 0)){
+                  console.log(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)));
+                }
+              }
+              if (direction == "south"){
+                if ((parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >= 0)){
+                  console.log(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)));
+                }
+              }
+              if (direction == "east"){
+                if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0)){
+                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y));
+                  return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)));
+                }
+              }
+              if (direction == "west"){
+                if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0)){
+                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y));
+                  return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)));
+                }
+              }
+              if (direction == "northEast"){
+                if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)));
+                }
+              }
+              if (direction == "southEast"){
+                if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
+                }
+              }
+              if (direction == "southWest"){
+                if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
+                } 
+              }
+              if (direction == "northWest"){
+                if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)));
+                }
+              }
+            }
+
             for (var i = 0; i < directions.length; i ++) {
               var a = directions[i];
+              var ennemi = null;
+              if (game.joueurcourant == 1){
+                ennemi = 2;
+              }
+              else{
+                ennemi = 1;
+              }
               console.log('PASSE9');
-               if (this.getPieceRelative(a, 1) == false &&
-                  this.getPieceRelative(a, 2) == false &&
-                  this.getPieceRelative(a, 3) == true) {
+               if (this.getNumPion(a, 1) == ennemi &&
+                  this.getNumPion(a, 2) == ennemi &&
+                  this.getNumPion(a, 3) == game.joueurcourant) {
                 var firstdelete = getCoordStringRelative(a, 1);
                 var seconddelete = getCoordStringRelative(a, 2);
 
@@ -257,7 +316,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                 game.board.deletePion(seconddelete[0],seconddelete[1]);
 
                 if (game.joueurcourant == 1) game.incrNbtenaillesj1();
-                if (game.joueurcourant == 2) game.incrNbtenaillesj2;
+                if (game.joueurcourant == 2) game.incrNbtenaillesj2();
                 if (game.nbtenaillesj1 == 5 || game.nbtenaillesj2 == 5) {
                   game.setfinpartie()
                   game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' avec 5 tenailles')
@@ -358,7 +417,7 @@ router.get('/turn/:idJoueur', function(req, res, next) {
           "dernierCoupY" : game.player2.dernierCoupY,
           "prolongation" : game.prolongation,
           "finPartie" : game.finpartie,
-          "detailFinPartie" : game.detailFinPartie,
+          "detailFinPartie" : game.detailfinpartie,
           "numTour" : game.numTour,
           "code" : 200
             })
