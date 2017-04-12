@@ -52,6 +52,10 @@ body{
         .text{
           margin-top: none;
           top: 9%;
+          .val_seconds{
+            margin-top: -40px;
+            font-size: 10px;
+          }
         }
       }
     }

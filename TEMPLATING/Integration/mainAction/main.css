@@ -57,3 +57,6 @@ body {
         body nav .nav-wrapper .counter .text {
           margin-top: none;
           top: 9%; }
+          body nav .nav-wrapper .counter .text .val_seconds {
+            margin-top: -40px;
+            font-size: 10px; }
