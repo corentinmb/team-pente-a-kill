@@ -6,6 +6,7 @@
         Hello
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="https://aprescott.github.io/tenuki.js/build/tenuki.css">
     <script src="https://aprescott.github.io/tenuki.js/build/tenuki.js"></script>
 </head>
@@ -16,7 +17,7 @@
     <script>
         var boardElement = document.querySelector(".tenuki-board");
         var game = new tenuki.Game(boardElement);
-        game.setup();
+        /*game.setup();
         game.playAt(2, 2)
 
         game.playAt(3, 2)
@@ -25,8 +26,39 @@
 
         game.playAt(2, 1)
 
-        game.playAt(2, 0)
+        game.playAt(2, 0)*/
+        function refreshData(callback) {
+            setInterval(function() {
+                $.ajax({
+                    url: "http://localhost:3000/turn/" + <%= id %>
+                }).then(function(data) {
+                    callback(data);
+                });
+            }, 0.5); //0.5 seconds
+        }
+
+        function arrayToTable(tableData) {
+            var table = $('<table></table>');
+            $(tableData).each(function(i, rowData) {
+                var row = $('<tr></tr>');
+                $(rowData).each(function(j, cellData) {
+                    row.append($('<td>' + cellData + '</td>'));
+                });
+                table.append(row);
+            });
+            return table;
+        }
+
+        function setData(result) {
+            var mydata = eval(result.tableau.board);
+            console.log(mydata)
+            var table = arrayToTable(mydata);
+            $("#board").html(table);
+        }
+
+        refreshData(setData);
     </script>
+    <div id="board"></div>
 </body>
 
 </html>
