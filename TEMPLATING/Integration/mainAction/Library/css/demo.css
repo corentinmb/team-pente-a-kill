@@ -11,7 +11,7 @@
 .clock-item .inner {
 	height: 0px;
 	padding-bottom: 100%;
-	position: relative;
+	position: relative;	
 	width: 100%;
 }
 
@@ -23,9 +23,9 @@
 }
 
 .text {
-	color: #fff;
+	color: #fff;	
 	font-size: 30px;
-	font-weight: bold;
+	font-weight: bold;	
 	margin-top: -50px;
 	position: absolute;
 	top: 50%;
@@ -37,10 +37,6 @@
 .text .val {
 	font-size: 50px;
 }
-.text .val_seconds{
-	margin-top: -45px;
-	font-size: 12px;
-}
 
 .text .type-time {
 	font-size: 20px;
@@ -48,7 +44,7 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
 	.clock-item {
-		margin-bottom: 30px;
+		margin-bottom: 30px;		
 	}
 }
 

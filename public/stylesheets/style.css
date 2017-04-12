@@ -1,8 +1,32 @@
+* {
+  font-family: arial;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #E9C372;
+  border: 1px black solid;
+}
+
+th, td {
+  border: 1px black solid;
+}
+
+td {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
+	background: #E9C372;
 }

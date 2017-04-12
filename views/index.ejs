@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+        Hello
+    </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <script src="javascripts/index.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#button').click(function(e) {
+                var inputvalue = $("#input").val();
+                sendRequest(inputvalue);
+            });
+
+            function sendRequest(inputvalue) {
+                $.ajax({
+                    url: "http://localhost:3000/connect/" + inputvalue
+                }).then(function(data) {
+                    window.location.href = "http://localhost:3000/board/" + data.idJoueur;
+                });
+            }
+
+            $(document).keypress(function(e) {
+                var inputvalue = $("#input").val();
+                if (e.which == 13 && inputvalue != "") {
+                    sendRequest(inputvalue);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <input type="text" autofocus placeholder="Entrez une ville" id="input">
+    <button type="button" id="button">Connexion</button>
+</body>
+
 </html>
