@@ -30,13 +30,13 @@
         function refreshData(callback) {
             var intervalHolder = setInterval(function() {
                 $.ajax({
-                    url: "http://localhost:3000/turn/" + <%= id %>,
+                    url: "http://" + window.location.host + "/turn/" + <%= id %>,
                     success: function(data) {
                         callback(data);
                     },
                     error: function() {
                         clearInterval(intervalHolder);
-                        window.location.href = "http://localhost:3000";
+                        window.location.href = "http://" + window.location.host;
                     }
                 });
             }, 500); //0.5 seconds
@@ -44,7 +44,7 @@
 
         function clickOnCell(i, j) {
             $.ajax({
-                url: "http://localhost:3000/play/" + i + "/" + j + "/" + <%= id %>
+                url: "http://" + window.location.host + "/play/" + i + "/" + j + "/" + <%= id %>
             });
         }
 

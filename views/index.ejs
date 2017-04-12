@@ -18,9 +18,9 @@
 
             function sendRequest(inputvalue) {
                 $.ajax({
-                    url: "http://localhost:3000/connect/" + inputvalue
+                    url: "http://" + window.location.host + "/connect/" + inputvalue
                 }).then(function(data) {
-                    window.location.href = "http://localhost:3000/board/" + data.idJoueur;
+                    window.location.href = "http://" + window.location.host + "/board/" + data.idJoueur;
                 });
             }
 
