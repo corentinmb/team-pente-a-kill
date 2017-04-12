@@ -61,11 +61,11 @@ router.get('/connect/:groupName', function(req, res, next) {
 router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
   if (game.finpartie == false){
   	if(((req.params.idJoueur == game.player2.idJoueur) && (game.player2.numJoueur == game.joueurcourant))||((req.params.idJoueur == game.player1.idJoueur) && (game.player1.numJoueur == game.joueurcourant))){
-      if (req.params.x>=0 && req.params.x<19 && req.params.y>=0 && req.params.y<19){
-    		if ((game.board.pionHere(req.params.x,req.params.y) == false)){
+      if (parseInt(req.params.x)>=0 && parseInt(req.params.x)<19 && parseInt(req.params.y)>=0 && parseInt(req.params.y)<19){
+    		if ((game.board.pionHere(parseInt(req.params.x),parseInt(req.params.y)) == false)){
           if(firsttour == false && secondtour == false){
             game.incrTour();
-      		  game.board.setPion(req.params.x,req.params.y,game.joueurcourant);
+      		  game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
             //On teste si c'est gagné
             var north = 0;
             var south = 0;
@@ -77,14 +77,14 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             var southWest = 0;
 
             getPieceRelative = function(direction, distance) {
-              if (direction == "north") return (game.board.getPion(req.params.x,req.params.y-distance) == game.joueurcourant);
-              if (direction == "south") return (game.board.getPion(req.params.x,req.params.y+distance) == game.joueurcourant);
-              if (direction == "east") return (game.board.getPion(req.params.x+distance,req.params.y) == game.joueurcourant);
-              if (direction == "west") return (game.board.getPion(req.params.x-distance,req.params.y) == game.joueurcourant);
-              if (direction == "northEast") return (game.board.getPion(req.params.x+distance,req.params.y-distance) == game.joueurcourant);
-              if (direction == "southEast") return (game.board.getPion(req.params.x+distance,req.params.y+distance) == game.joueurcourant);
-              if (direction == "southWest") return (game.board.getPion(req.params.x-distance,req.params.y+distance) == game.joueurcourant);
-              if (direction == "northWest") return (game.board.getPion(req.params.x-distance,req.params.y-distance) == game.joueurcourant);
+              if (direction == "north") return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
+              if (direction == "south") return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
+              if (direction == "east") return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
+              if (direction == "west") return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
+              if (direction == "northEast") return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
+              if (direction == "southEast") return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
+              if (direction == "southWest") return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
+              if (direction == "northWest") return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
             }
 
             // Count the number of pieces in each direction
@@ -150,17 +150,17 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' ligne de 5 pions')
             }
 
-            
+
 
              getCoordStringRelative = function(direction, distance) {
-              if (direction == "north") return [req.params.x,req.params.y-distance];
-              if (direction == "south") return [req.params.x,req.params.y+distance];
-              if (direction == "east") return [req.params.x+distance,req.params.y];
-              if (direction == "west") return [req.params.x-distance,req.params.y];
-              if (direction == "northEast") return [req.params.x+distance,req.params.y-distance];
-              if (direction == "southEast") return [req.params.x+distance,req.params.y+distance];
-              if (direction == "southWest") return [req.params.x-distance,req.params.y+distance];
-              if (direction == "northWest") return [req.params.x-distance,req.params.y-distance];
+              if (direction == "north") return [parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)];
+              if (direction == "south") return [parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)];
+              if (direction == "east") return [parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)];
+              if (direction == "west") return [parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)];
+              if (direction == "northEast") return [parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)];
+              if (direction == "southEast") return [parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)];
+              if (direction == "southWest") return [parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)];
+              if (direction == "northWest") return [parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)];
             }
 
             directions = ['north', 'northEast', 'east', 'southEast', 'south', 'southWest', 'west', 'northWest'];
@@ -188,44 +188,44 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
 
             //Set dernier coup et à qui de jouer
             if(game.joueurcourant == 1){
-              game.player2.setDernierCoup(req.params.x,req.params.y);
+              game.player2.setDernierCoup(parseInt(req.params.x),parseInt(req.params.y));
               game.setJoueurcourant(2);
             }
             else{
-              game.player1.setDernierCoup(req.params.x,req.params.y);
+              game.player1.setDernierCoup(parseInt(req.params.x),parseInt(req.params.y));
               game.setJoueurcourant(1)
             }
 
       		  res.sendStatus(200);
           }
           else{
-            if (firsttour == true && req.params.x == 9 && req.params.y == 9){
+            if (firsttour == true && parseInt(req.params.x) == 9 && parseInt(req.params.y) == 9){
               game.incrTour();
-              game.board.setPion(req.params.x,req.params.y,game.joueurcourant);
+              game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
               firsttour = false;
               secondtour = true;
 
               if(game.joueurcourant == 1){
-                game.player2.setDernierCoup(req.params.x,req.params.y);
+                game.player2.setDernierCoup(parseInt(req.params.x),parseInt(req.params.y));
                 game.setJoueurcourant(2);
               }
               else{
-                game.player1.setDernierCoup(req.params.x,req.params.y);
+                game.player1.setDernierCoup(parseInt(req.params.x),parseInt(req.params.y));
                 game.setJoueurcourant(1)
               }
               res.sendStatus(200);
             }
-            else if (firsttour == false && secondtour == true && req.params.x > 7 && req.params.x < 11 && req.params.y > 7 && req.params.y < 11){
+            else if (firsttour == false && secondtour == true && parseInt(req.params.x) > 7 && parseInt(req.params.x) < 11 && parseInt(req.params.y) > 7 && parseInt(req.params.y) < 11){
               game.incrTour();
-              game.board.setPion(req.params.x,req.params.y,game.joueurcourant);
+              game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
               secondtour = false;
 
               if(game.joueurcourant == 1){
-                game.player2.setDernierCoup(req.params.x,req.params.y);
+                game.player2.setDernierCoup(parseInt(req.params.x),parseInt(req.params.y));
                 game.setJoueurcourant(2);
               }
               else{
-                game.player1.setDernierCoup(req.params.x,req.params.y);
+                game.player1.setDernierCoup(parseInt(req.params.x),parseInt(req.params.y));
                 game.setJoueurcourant(1)
               }
               res.sendStatus(200);

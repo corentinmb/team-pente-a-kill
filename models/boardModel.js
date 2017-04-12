@@ -29,7 +29,6 @@ Board.prototype.pionHere = function(x,y){
 }
 
 Board.prototype.getPion = function(x,y){
-	console.log(this.board[x][y]);
 	return this.board[x][y];
 }
 
