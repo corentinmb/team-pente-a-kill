@@ -42,12 +42,18 @@
             }, 500); //0.5 seconds
         }
 
+        function clickOnCell(i, j) {
+            $.ajax({
+                url: "http://localhost:3000/play/" + i + "/" + j + "/" + <%= id %>
+            });
+        }
+
         function arrayToTable(tableData) {
             var table = $('<table></table>');
             $(tableData).each(function(i, rowData) {
                 var row = $('<tr></tr>');
                 $(rowData).each(function(j, cellData) {
-                    row.append($('<td>' + cellData + '</td>'));
+                    row.append($('<td onClick="clickOnCell(' + i + ',' + j + ')">' + cellData + '</td>'));
                 });
                 table.append(row);
             });
