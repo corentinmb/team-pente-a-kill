@@ -102,9 +102,9 @@
 
     function dispatchTimer() {
         timer = {
-            total: Math.floor((settings.end - settings.start) / 86400),
-            minutes: 60 - Math.floor((((settings.end - settings.now) % 86400) % 3600) / 60),
-            seconds: 41 - Math.floor((((settings.end - settings.now) % 86400) % 3600) % 60 )
+            total: Math.floor((settings.end - settings.start) / 14400),
+            minutes: 41 - Math.floor((((settings.end - settings.now) % 14400) % 600) / 10),
+            seconds: 41 - Math.floor((((settings.end - settings.now) % 14400) % 600) % 60 )
         }
     }
 
@@ -154,10 +154,10 @@
                 var y = minutes_width / 2;
 
                 context.beginPath();
-                context.arc(x, y, radius, convertToDeg(0), convertToDeg(timer.minutes * 6));
+                context.arc(x, y, radius, convertToDeg(0), convertToDeg(timer.minutes * 36.5));
                 context.fillStrokeShape(this);
 
-                $(settings.selectors.value_minutes).html(24 - timer.minutes);
+                $(settings.selectors.value_minutes).html(10 - timer.minutes);
 
             },
             stroke: settings.minutes.borderColor,
@@ -172,7 +172,7 @@
     function startCounters() {
         var interval = setInterval( function() {
             if (timer.seconds > 59 ) {
-                if (60 - timer.minutes == 0 ) {
+                if (10 - timer.minutes == 0 ) {
                     clearInterval(interval);
                     if (callbackFunction !== undefined) {
                         callbackFunction.call(this); // brings the scope to the callback
@@ -182,7 +182,7 @@
 
                 timer.seconds = 1;
 
-                if (timer.minutes > 59) {
+                if (timer.minutes > 10) {
                     timer.minutes = 1;
                     layerMinutes.draw();
                 } else {
