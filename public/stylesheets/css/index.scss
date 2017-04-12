@@ -46,7 +46,7 @@ body{
       }
 
       .player{
-        height: 316px;
+        height: 370px;
         display: flex;
         align-items: center;
 
@@ -55,17 +55,6 @@ body{
         }
         .player2{
           margin-left: 12%;
-        }
-      }
-
-      .start{
-        input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
-          border-bottom: 1px solid #18415F;
-        }
-        input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
-          border-bottom: 1px solid #18415F;
-          box-shadow: 0 1px 0 0 #18415F;
-          color: #fff;
         }
       }
 

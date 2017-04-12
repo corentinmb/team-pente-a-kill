@@ -1,43 +1,67 @@
+</html>
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/stylesheets/css/index.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Jeu de pente</title>
+    </head>
+    <body>
+        <div id="box1" class="box blurred-bg tinted">
+          <div class="col s12 content">
+              <div class="col s12 title">
+                <div class="col s4">
+                  <img src="/stylesheets/img/logo.svg" alt="logo_jeu_de_pente">
+                </div>
+                <h1 class="col s8">Jeu de pente</h1>
+              </div>
+              <div class="col s12 row player">
+                  <div class="col s4 player1">
+                      <img src="/stylesheets/img/player1.svg" alt="PLAYER ONE">
+                  </div>
+                  <div class="col s4 versus">
+                    <img src="/stylesheets/img/versus.svg" alt="VS">
+                  </div>
+                  <div class="col s4 player2">
+                      <img src="/stylesheets/img/player2.svg" alt="PLAYER TWO">
+                  </div>
+              </div>
+              <div class="col s12 start">
+                <input type="text" autofocus placeholder="Entrez une ville" id="input">
+                <a class="bouton waves-effect waves-light btn-large" id="button">Lancer la partie</a>
+              </div>
+          </div>
+        </div>
 
-<head>
-    <title>
-        Hello
-    </title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="javascripts/index.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+        <script src="javascripts/index.js"></script>
+        <script>
+          $(document).ready(function() {
 
-            $('#button').click(function(e) {
-                var inputvalue = $("#input").val();
-                sendRequest(inputvalue);
-            });
+              $('#button').click(function(e) {
+                  var inputvalue = $("#input").val();
+                  sendRequest(inputvalue);
+              });
 
-            function sendRequest(inputvalue) {
-                $.ajax({
-                    url: "http://localhost:3000/connect/" + inputvalue
-                }).then(function(data) {
-                    window.location.href = "http://localhost:3000/board/" + data.idJoueur;
-                });
-            }
+              function sendRequest(inputvalue) {
+                  $.ajax({
+                      url: "http://localhost:3000/connect/" + inputvalue
+                  }).then(function(data) {
+                      window.location.href = "http://localhost:3000/board/" + data.idJoueur;
+                  });
+              }
 
-            $(document).keypress(function(e) {
-                var inputvalue = $("#input").val();
-                if (e.which == 13 && inputvalue != "") {
-                    sendRequest(inputvalue);
-                }
-            });
-        });
-    </script>
-</head>
-
-<body>
-
-    <input type="text" autofocus placeholder="Entrez une ville" id="input">
-    <button type="button" id="button">Connexion</button>
-</body>
-
+              $(document).keypress(function(e) {
+                  var inputvalue = $("#input").val();
+                  if (e.which == 13 && inputvalue != "") {
+                      sendRequest(inputvalue);
+                  }
+              });
+          });
+        </script>
+    </body>
 </html>

@@ -150,7 +150,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' ligne de 5 pions')
             }
 
-            
+
 
              getCoordStringRelative = function(direction, distance) {
               if (direction == "north") return [req.params.x,req.params.y-distance];

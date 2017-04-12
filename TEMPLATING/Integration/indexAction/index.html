@@ -9,6 +9,16 @@
         <title>Jeu de pente</title>
     </head>
     <body>
+      <a class="waves-effect waves-light btn con" href="#connexion" style="display:none"></a>
+    <div id="connexion" class="modal">
+      <div class="modal-content">
+        <input type="text" autofocus placeholder="Entrez une ville" id="input" class="enterCity">
+      </div>
+      <div class="modal-footer attr">
+        <a class="waves-effect waves-light btn" id="button">Connexion</a>
+      </div>
+    </div>
+
         <div id="box1" class="box blurred-bg tinted">
           <div class="col s12 content">
               <div class="col s12 title">
@@ -36,5 +46,11 @@
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+        <script>
+        window.onload = function() {
+          $('.con').click();
+        };
+        $('.modal').modal();
+        </script>
     </body>
 </html>
