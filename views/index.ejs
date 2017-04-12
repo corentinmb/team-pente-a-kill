@@ -13,11 +13,22 @@
 
             $('#button').click(function(e) {
                 var inputvalue = $("#input").val();
+                sendRequest(inputvalue);
+            });
+
+            function sendRequest(inputvalue) {
                 $.ajax({
                     url: "http://localhost:3000/connect/" + inputvalue
                 }).then(function(data) {
                     window.location.href = "http://localhost:3000/board/" + data.idJoueur;
                 });
+            }
+
+            $(document).keypress(function(e) {
+                var inputvalue = $("#input").val();
+                if (e.which == 13 && inputvalue != "") {
+                    sendRequest(inputvalue);
+                }
             });
         });
     </script>
@@ -25,7 +36,7 @@
 
 <body>
 
-    <input type="text" placeholder="Entrez une ville" id="input">
+    <input type="text" autofocus placeholder="Entrez une ville" id="input">
     <button type="button" id="button">Connexion</button>
 </body>
 
