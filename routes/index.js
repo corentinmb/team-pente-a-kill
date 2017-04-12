@@ -77,70 +77,150 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             var southWest = 0;
 
             getPieceRelative = function(direction, distance) {
-              if (direction == "north") return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
-              if (direction == "south") return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
-              if (direction == "east") return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
-              if (direction == "west") return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
-              if (direction == "northEast") return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
-              if (direction == "southEast") return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
-              if (direction == "southWest") return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
-              if (direction == "northWest") return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
+              if (direction == "north"){
+                if ((parseInt(req.params.y)-parseInt(distance) < 19) && (parseInt(req.params.y)-parseInt(distance) >= 0)){
+                  console.log(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }
+              }
+              if (direction == "south"){
+                if ((parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >= 0)){
+                  console.log(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }
+              }
+              if (direction == "east"){
+                if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0)){
+                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y));
+                  return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }  
+              }
+              if (direction == "west"){
+                if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0)){
+                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y));
+                  return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }  
+              }
+              if (direction == "northEast"){
+                if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }
+              }
+              if (direction == "southEast"){
+                if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }
+              }
+              if (direction == "southWest"){
+                if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }  
+              }
+              if (direction == "northWest"){
+                if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
+                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance));
+                  return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
+                }
+                else{
+                  return false;
+                }
+              }
             }
 
             // Count the number of pieces in each direction
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE1");
               if (this.getPieceRelative("north",i)) {
                 north++;
-              } else {
+              } 
+              else{
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE2");
               if (this.getPieceRelative("south",i)) {
                 south++;
-              } else {
+              }
+              else{
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE3");
               if (this.getPieceRelative("east",i)) {
                 east++;
-              } else {
+              }
+              else{
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE4");
               if (this.getPieceRelative("west",i)) {
                 west++;
-              } else {
+              }
+              else{
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE5");
               if (this.getPieceRelative("northWest",i)) {
                 northWest++;
-              } else {
+              }
+              else{
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE6");
               if (this.getPieceRelative("southWest",i)) {
                 southWest++;
-              } else {
+              }
+              else{
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE7");
               if (this.getPieceRelative("northEast",i)) {
                 northEast++;
-              } else {
-                break;
               }
+              else{
+                break;
+              }  
             }
             for (var i = 1; i < 5; i ++) {
+              console.log("PASSE8");
               if (this.getPieceRelative("southEast",i)) {
                 southEast++;
-              } else {
+              }
+              else{
                 break;
               }
             }
@@ -166,7 +246,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             directions = ['north', 'northEast', 'east', 'southEast', 'south', 'southWest', 'west', 'northWest'];
             for (var i = 0; i < directions.length; i ++) {
               var a = directions[i];
-
+              console.log('PASSE9');
                if (this.getPieceRelative(a, 1) == false &&
                   this.getPieceRelative(a, 2) == false &&
                   this.getPieceRelative(a, 3) == true) {

@@ -29,7 +29,7 @@ Board.prototype.pionHere = function(x,y){
 }
 
 Board.prototype.getPion = function(x,y){
-	return this.board[x][y];
+	return this.board[parseInt(x)][parseInt(y)];
 }
 
 Board.prototype.deletePion = function(x,y){
