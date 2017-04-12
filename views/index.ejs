@@ -6,14 +6,38 @@
         Hello
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="javascripts/index.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#button').click(function(e) {
+                var inputvalue = $("#input").val();
+                sendRequest(inputvalue);
+            });
+
+            function sendRequest(inputvalue) {
+                $.ajax({
+                    url: "http://localhost:3000/connect/" + inputvalue
+                }).then(function(data) {
+                    window.location.href = "http://localhost:3000/board/" + data.idJoueur;
+                });
+            }
+
+            $(document).keypress(function(e) {
+                var inputvalue = $("#input").val();
+                if (e.which == 13 && inputvalue != "") {
+                    sendRequest(inputvalue);
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <h1>Hello</h1>
-    <p>Hello
-    </p>
-    <p>La plateau se trouve <a href="/board">ici</a></p>
-    <p>Les endpoints de l'API de Montpellier sont implémentés (/connect, /play, /turn)</p>
+
+    <input type="text" autofocus placeholder="Entrez une ville" id="input">
+    <button type="button" id="button">Connexion</button>
 </body>
 
 </html>
