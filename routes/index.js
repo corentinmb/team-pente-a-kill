@@ -89,56 +89,56 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
 
             // Count the number of pieces in each direction
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("north",i) == game.joueurcourant) {
+              if (this.getPieceRelative("north",i)) {
                 north++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("south",i) == game.joueurcourant) {
+              if (this.getPieceRelative("south",i)) {
                 south++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("east",i) == game.joueurcourant) {
+              if (this.getPieceRelative("east",i)) {
                 east++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("west",i) == game.joueurcourant) {
+              if (this.getPieceRelative("west",i)) {
                 west++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("northWest",i) == game.joueurcourant) {
+              if (this.getPieceRelative("northWest",i)) {
                 northWest++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("southWest",i) == game.joueurcourant) {
+              if (this.getPieceRelative("southWest",i)) {
                 southWest++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("northEast",i) == game.joueurcourant) {
+              if (this.getPieceRelative("northEast",i)) {
                 northEast++;
               } else {
                 break;
               }
             }
             for (var i = 1; i < 5; i ++) {
-              if (this.getPieceRelative("southEast",i) == game.joueurcourant) {
+              if (this.getPieceRelative("southEast",i)) {
                 southEast++;
               } else {
                 break;
