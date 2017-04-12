@@ -4,6 +4,7 @@ var Game = require('../models/gameModel.js');
 var game = null;
 var id1 = null;
 var id2 = null;
+var numbegin = null;
 
 
 /* GET home page. */
@@ -34,6 +35,18 @@ router.get('/connect/:groupName', function(req, res, next) {
       }
       game.setPlayer2(id2,req.params.groupName,2,null,null);
       game.board.initBoard();
+
+      //who begin ?
+      numbegin = Math.floor(Math.random() * 2) + 1;
+      if (numbegin == 1){
+          game.board.setPion(9,9,1);
+          game.setJoueurcourant(2);
+      }
+      else{
+        game.board.setPion(9,9,2);
+        game.setJoueurcourant(1);
+      }
+
       res.json({"code" : 200,
                 "numJoueur" : game.player2.numJoueur,
                 "idJoueur" : game.player2.idJoueur,

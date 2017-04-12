@@ -14,7 +14,7 @@ function Game() {
   this.finpartie = false;
   this.detailfinpartie = '';
   this.numtour = 1;
-  this.joueurcourant = 1;
+  this.joueurcourant = null;
 }
 
 Game.prototype.setPlayer1 = function(id,nom,num){
