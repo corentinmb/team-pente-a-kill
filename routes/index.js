@@ -295,7 +295,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               res.sendStatus(200);
             }
-            else if (firsttour == false && secondtour == true && parseInt(req.params.x) > 7 && parseInt(req.params.x) < 11 && parseInt(req.params.y) > 7 && parseInt(req.params.y) < 11){
+            else if (firsttour == false && secondtour == true && parseInt(req.params.x) > 5 && parseInt(req.params.x) < 13 && parseInt(req.params.y) > 5 && parseInt(req.params.y) < 13){
               game.incrTour();
               game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
               secondtour = false;
