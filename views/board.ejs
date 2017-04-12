@@ -28,13 +28,19 @@
 
         game.playAt(2, 0)*/
         function refreshData(callback) {
-            setInterval(function() {
+            var intervalHolder = setInterval(function() {
                 $.ajax({
-                    url: "http://localhost:3000/turn/" + <%= id %>
-                }).then(function(data) {
-                    callback(data);
+                    url: "http://localhost:3000/turn/" + <%= id %>,
+                    success: function(data) {
+                        callback(data);
+                    },
+                    error: function() {
+                        clearInterval(intervalHolder);
+                        window.location.href = "http://localhost:3000";
+                    }
                 });
             }, 0.5); //0.5 seconds
+
         }
 
         function arrayToTable(tableData) {
