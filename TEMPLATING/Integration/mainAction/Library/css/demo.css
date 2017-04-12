@@ -37,6 +37,10 @@
 .text .val {
 	font-size: 50px;
 }
+.text .val_seconds{
+	margin-top: -45px;
+	font-size: 12px;
+}
 
 .text .type-time {
 	font-size: 20px;

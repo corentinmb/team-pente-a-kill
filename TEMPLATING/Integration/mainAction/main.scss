@@ -39,16 +39,13 @@ body{
       }
       .counter{
         display: flex;
-        .countdown-container{
-          display: flex;
-          justify-content: center;
-        }
         .clock-item .inner{
-          width: 100%;
+          width: 42%;
+          margin: 0 auto;
         }
         .text{
           margin-top: none;
-          top: 12%;
+          top: 9%;
         }
       }
     }

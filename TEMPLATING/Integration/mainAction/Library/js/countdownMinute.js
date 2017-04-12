@@ -28,13 +28,13 @@
             end: undefined,
             now: undefined,
             selectors: {
-                value_seconds: '.clock-seconds .val',
-                canvas_seconds: 'canvas-seconds',
+                value_seconds_opt: '.clock-seconds-m .val_seconds',
+                canvas_seconds_opt: 'canvas-seconds-m',
                 value_minutes: '.clock-minutes .val',
                 canvas_minutes: 'canvas-minutes',
             },
             seconds: {
-                borderColor: '#7995D5',
+                borderColor: '#FFF',
                 borderWidth: '20'
             },
             minutes: {
@@ -110,16 +110,16 @@
 
     function prepareCounters() {
         // Seconds
-        var seconds_width = $('#' + settings.selectors.canvas_seconds).width()
+        var seconds_width = $('#' + settings.selectors.canvas_seconds_opt).width()
         var secondsStage = new Kinetic.Stage({
-            container: settings.selectors.canvas_seconds,
+            container: settings.selectors.canvas_seconds_opt,
             width: seconds_width,
             height: seconds_width
         });
 
         circleSeconds = new Kinetic.Shape({
             drawFunc: function(context) {
-                var seconds_width = $('#' + settings.selectors.canvas_seconds).width()
+                var seconds_width = $('#' + settings.selectors.canvas_seconds_opt).width()
                 var radius = seconds_width / 2 - settings.seconds.borderWidth / 2;
                 var x = seconds_width / 2;
                 var y = seconds_width / 2;
@@ -128,7 +128,7 @@
                 context.arc(x, y, radius, convertToDeg(0), convertToDeg(timer.seconds * 6));
                 context.fillStrokeShape(this);
 
-                $(settings.selectors.value_seconds).html(60 - timer.seconds);
+                $(settings.selectors.value_seconds_opt).html(60 - timer.seconds);
             },
             stroke: settings.seconds.borderColor,
             strokeWidth: settings.seconds.borderWidth
@@ -136,7 +136,7 @@
 
         layerSeconds = new Kinetic.Layer();
         layerSeconds.add(circleSeconds);
-        secondsStage.add(layerSeconds);
+        // secondsStage.add(layerSeconds);
 
         // Minutes
         var minutes_width = $('#' + settings.selectors.canvas_minutes).width();
@@ -194,7 +194,7 @@
                 timer.seconds++;
             }
 
-            // layerSeconds.draw();
+            layerSeconds.draw();
         }, 1000);
     }
 })(jQuery);
