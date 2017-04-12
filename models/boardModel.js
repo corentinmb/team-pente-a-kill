@@ -28,5 +28,14 @@ Board.prototype.pionHere = function(x,y){
 	}
 }
 
+Board.prototype.getPion = function(x,y){
+	console.log(this.board[x][y]);
+	return this.board[x][y];
+}
+
+Board.prototype.deletePion = function(x,y){
+	this.board[x][y] = 0;
+}
+
 // export the class
 module.exports = Board;

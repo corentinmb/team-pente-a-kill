@@ -66,6 +66,126 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
           if(firsttour == false && secondtour == false){
             game.incrTour();
       		  game.board.setPion(req.params.x,req.params.y,game.joueurcourant);
+            //On teste si c'est gagné
+            var north = 0;
+            var south = 0;
+            var east = 0;
+            var west = 0;
+            var northEast = 0;
+            var northWest = 0;
+            var southEast = 0;
+            var southWest = 0;
+
+            getPieceRelative = function(direction, distance) {
+              if (direction == "north") return (game.board.getPion(req.params.x,req.params.y-distance) == game.joueurcourant);
+              if (direction == "south") return (game.board.getPion(req.params.x,req.params.y+distance) == game.joueurcourant);
+              if (direction == "east") return (game.board.getPion(req.params.x+distance,req.params.y) == game.joueurcourant);
+              if (direction == "west") return (game.board.getPion(req.params.x-distance,req.params.y) == game.joueurcourant);
+              if (direction == "northEast") return (game.board.getPion(req.params.x+distance,req.params.y-distance) == game.joueurcourant);
+              if (direction == "southEast") return (game.board.getPion(req.params.x+distance,req.params.y+distance) == game.joueurcourant);
+              if (direction == "southWest") return (game.board.getPion(req.params.x-distance,req.params.y+distance) == game.joueurcourant);
+              if (direction == "northWest") return (game.board.getPion(req.params.x-distance,req.params.y-distance) == game.joueurcourant);
+            }
+
+            // Count the number of pieces in each direction
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("north",i) == game.joueurcourant) {
+                north++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("south",i) == game.joueurcourant) {
+                south++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("east",i) == game.joueurcourant) {
+                east++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("west",i) == game.joueurcourant) {
+                west++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("northWest",i) == game.joueurcourant) {
+                northWest++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("southWest",i) == game.joueurcourant) {
+                southWest++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("northEast",i) == game.joueurcourant) {
+                northEast++;
+              } else {
+                break;
+              }
+            }
+            for (var i = 1; i < 5; i ++) {
+              if (this.getPieceRelative("southEast",i) == game.joueurcourant) {
+                southEast++;
+              } else {
+                break;
+              }
+            }
+
+            if (north + south >= 4 || east + west >= 4 || northEast + southWest >= 4 || northWest + southEast >= 4) { // player wins
+              game.setfinpartie()
+              game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' ligne de 5 pions')
+            }
+
+            
+
+             getCoordStringRelative = function(direction, distance) {
+              if (direction == "north") return [req.params.x,req.params.y-distance];
+              if (direction == "south") return [req.params.x,req.params.y+distance];
+              if (direction == "east") return [req.params.x+distance,req.params.y];
+              if (direction == "west") return [req.params.x-distance,req.params.y];
+              if (direction == "northEast") return [req.params.x+distance,req.params.y-distance];
+              if (direction == "southEast") return [req.params.x+distance,req.params.y+distance];
+              if (direction == "southWest") return [req.params.x-distance,req.params.y+distance];
+              if (direction == "northWest") return [req.params.x-distance,req.params.y-distance];
+            }
+
+            directions = ['north', 'northEast', 'east', 'southEast', 'south', 'southWest', 'west', 'northWest'];
+            for (var i = 0; i < directions.length; i ++) {
+              var a = directions[i];
+
+               if (this.getPieceRelative(a, 1) == false &&
+                  this.getPieceRelative(a, 2) == false &&
+                  this.getPieceRelative(a, 3) == true) {
+                var firstdelete = getCoordStringRelative(a, 1);
+                var seconddelete = getCoordStringRelative(a, 2);
+
+                game.board.deletePion(firstdelete[0],firstdelete[1]);
+                game.board.deletePion(seconddelete[0],seconddelete[1]);
+
+                if (game.joueurcourant == 1) game.incrNbtenaillesj1();
+                if (game.joueurcourant == 2) game.incrNbtenaillesj2;
+                if (game.nbtenaillesj1 == 5 || game.nbtenaillesj2 == 5) {
+                  game.setfinpartie()
+                  game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' avec 5 tenailles')
+                  break;
+                }
+              }
+            }
+
             //Set dernier coup et à qui de jouer
             if(game.joueurcourant == 1){
               game.player2.setDernierCoup(req.params.x,req.params.y);

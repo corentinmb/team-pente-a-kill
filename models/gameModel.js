@@ -41,5 +41,21 @@ Game.prototype.incrTour = function(){
   this.numtour += 1;
 }
 
+Game.prototype.incrNbtenaillesj1 = function(){
+  this.nbtenaillesj1 += 1;
+}
+
+Game.prototype.incrNbtenaillesj2 = function(){
+  this.nbtenaillesj2 += 1;
+}
+
+Game.prototype.setfinpartie = function(){
+  this.finpartie = true;
+}
+
+Game.prototype.setdetailfinpartie = function(texte){
+  this.detailfinpartie = texte;
+}
+
 // export the class
 module.exports = Game;
