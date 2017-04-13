@@ -2,14 +2,15 @@ var log = require('fancy-log');
 var request = require('request');
 
 var IAconfig = {
-    adresseAPI: null,
-    nomEquipe: null,
-    dataConnect: null,
-    dataTurn: null,
-    currentPlayerColor: '',
-    pieces: {},
-    difficulty: "Medium",
-    getPiece: function(x, y, direction, distance) {
+  adresseAPI: null,
+  nomEquipe: null,
+  dataConnect: null,
+  dataTurn: null,
+  currentPlayerColor: '',
+  pieces: {},
+  difficulty: "Hard",
+  getPiece: function(x, y, direction, distance) {
+    //console.log(this.pieces);
     if (direction == "north") return this.pieces[this.coordString(x, y - distance)];
     if (direction == "south") return this.pieces[this.coordString(x, y + distance)];
     if (direction == "east") return this.pieces[this.coordString(x + distance, y)];
@@ -44,6 +45,15 @@ var IAconfig = {
       return 'black';
     }
   },
+  copyAndParsePiecesArray: function(){
+    var SIZE = 19;
+    for (var i = 0; i < SIZE; i++) {
+      for (var j = 0; j < SIZE; j++) {
+        this.pieces[this.coordString(i,j)] = this.dataTurn.tableau.board[i][j];
+      }
+    }
+    //console.log(this.pieces)
+  }
 };
 
 var finPartie = false;
@@ -89,6 +99,7 @@ function connect(callback) {
           log.info("IA connectée avec succès !")
           IAconfig.dataConnect = JSON.parse(body);
           IAconfig.currentPlayerColor = IAconfig.dataConnect.numJoueur == 1 ? 'black' : 'white';
+          //console.log(IAconfig.currentPlayerColor);
           callback(IAconfig.dataConnect);
         } else {
           process.on('exit', (code) => {
@@ -111,6 +122,8 @@ function turn(callback){
   request(IAconfig.adresseAPI + "/turn/" + IAconfig.dataConnect.idJoueur, function(error, response, body) {
       if (response && response.statusCode == 200) {
         IAconfig.dataTurn = JSON.parse(body);
+        if(IAconfig.dataTurn.tableau.board)
+          IAconfig.copyAndParsePiecesArray();
         callback(IAconfig.dataTurn);
       }
   });
@@ -155,9 +168,13 @@ function move(b){
         // IA teubée
         //var x = getRand(0,18);
         //var y = getRand(0,18);
-        var coord = parseCoord(brain());
-        log.info("Tour " + b.numTour + ": Je joue en " + coord.x + ";" + coord.y + "...")
-        play(coord.x,coord.y);
+        var move = brain();
+        if (!IAconfig.pieces[move]) { // if the move is unoccupied, it's a legal move
+          IAconfig.pieces[move] = IAconfig.currentPlayerColor;
+          log.info("Tour " + b.numTour + ": Je joue en " + move.x + ";" + move.y + "...")
+          move = parseCoord(move)
+          play(move.x,move.y);
+        }
       }
     } else {
       log.info("Attente...")
@@ -196,7 +213,7 @@ function brain() {
         // pair that can be stolen (b1)
         if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponentColor() &&
             IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayerColor()) {
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayerColor) {
           strength += 10;
           console.log('[brain] found pair to steal ' + IAconfig.coordString(i,j));
 
