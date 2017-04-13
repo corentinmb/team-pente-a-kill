@@ -1,4 +1,3 @@
-</html>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,13 +46,22 @@
                   sendRequest(inputvalue);
               });
 
-              function sendRequest(inputvalue) {
-                  $.ajax({
-                      url: "http://localhost:3000/connect/" + inputvalue
-                  }).then(function(data) {
-                      window.location.href = "http://localhost:3000/board/" + data.idJoueur;
-                  });
-              }
+            $('#buttonSpec').click(function(e) {
+                var inputvalue = $("#inputSpec").val();
+                spectate(inputvalue);
+            });
+
+            function spectate(inputvalue) {
+                window.location.href = "http://" + window.location.host + "/board/" + inputvalue;
+            }
+
+            function sendRequest(inputvalue) {
+                $.ajax({
+                    url: "http://" + window.location.host + "/connect/" + inputvalue
+                }).then(function(data) {
+                    window.location.href = "http://" + window.location.host + "/board/" + data.idJoueur;
+                });
+            }
 
               $(document).keypress(function(e) {
                   var inputvalue = $("#input").val();
