@@ -239,6 +239,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               if (north + south >= 4 || east + west >= 4 || northEast + southWest >= 4 || northWest + southEast >= 4) { // player wins
                 game.setfinpartie()
                 game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' ligne de 5 pions')
+                res.sendStatus(200);
               }
 
 
