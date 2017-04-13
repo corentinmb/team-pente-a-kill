@@ -131,7 +131,7 @@ function parseCoord(d){
     x : null,
     y : null
   }
-  coord.x = parseInt(d.substring(2));
+  coord.x = parseInt(d.substring(0,2));
   coord.y = parseInt(d.substring(2));
 
   return coord;
@@ -153,10 +153,10 @@ function move(b){
         play(x,y);
       } else if (b.numTour > 1){
         // IA teubée
-        var x = getRand(0,18);
-        var y = getRand(0,18);
-        log.info("Tour " + b.numTour + ": Je joue en " + x + ";" + y + "...")
+        //var x = getRand(0,18);
+        //var y = getRand(0,18);
         var coord = parseCoord(brain());
+        log.info("Tour " + b.numTour + ": Je joue en " + coord.x + ";" + coord.y + "...")
         play(coord.x,coord.y);
       }
     } else {
