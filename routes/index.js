@@ -89,7 +89,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
     		if ((game.board.pionHere(parseInt(req.params.x),parseInt(req.params.y)) == false)){
           if(firsttour == false && secondtour == false && game.finpartie == false){
             var endtour = new Date().getTime();
-            if(parseInt(endtour) - parseInt(timetour) <= 10000){
+            if(parseInt(endtour) - parseInt(timetour) <= 12000){
 
               game.incrTour();
         		  game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
@@ -239,6 +239,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               if (north + south >= 4 || east + west >= 4 || northEast + southWest >= 4 || northWest + southEast >= 4) { // player wins
                 game.setfinpartie()
                 game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' ligne de 5 pions')
+                res.sendStatus(200);
               }
 
 
@@ -401,7 +402,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             }
             else if (firsttour == false && secondtour == true && parseInt(req.params.x) > 5 && parseInt(req.params.x) < 13 && parseInt(req.params.y) > 5 && parseInt(req.params.y) < 13){
               var endtour = new Date().getTime();
-              if(parseInt(endtour) - parseInt(timetour) <= 10000){
+              if(parseInt(endtour) - parseInt(timetour) <= 12000){
                 game.incrTour();
                 game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
                 secondtour = false;
