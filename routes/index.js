@@ -454,9 +454,12 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
 /* GET turn */
 router.get('/turn/:idJoueur', function(req, res, next) {
   if(req.params.idJoueur == game.player2.idJoueur || req.params.idJoueur == game.player1.idJoueur){
+    var stat = null;
     if(req.params.idJoueur == game.player1.idJoueur){
-     res.json({"status" : (game.player1.numJoueur == game.joueurcourant),
-          "tableau" : game.board,
+    if (game.player1.numJoueur == game.joueurcourant) {stat = 1;}
+    else{stat =0;}
+     res.json({"status" : stat,
+          "tableau" : game.board.board,
           "nbTenaillesJ1" : game.nbtenaillesj1,
           "nbTenaillesJ2" : game.nbtenaillesj2,
           "dernierCoupX" : game.player1.dernierCoupX,
@@ -469,8 +472,10 @@ router.get('/turn/:idJoueur', function(req, res, next) {
             })
       }
     if(req.params.idJoueur == game.player2.idJoueur){
-       res.json({"status" : (game.player2.numJoueur == game.joueurcourant),
-          "tableau" : game.board,
+      if (game.player2.numJoueur == game.joueurcourant) {stat = 1;}
+      else{stat =0;}
+       res.json({"status" : stat,
+          "tableau" : game.board.board,
           "nbTenaillesJ1" : game.nbtenaillesj1,
           "nbTenaillesJ2" : game.nbtenaillesj2,
           "dernierCoupX" : game.player2.dernierCoupX,
