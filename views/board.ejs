@@ -14,11 +14,11 @@
       <nav>
         <div class="nav-wrapper">
           <div class="row">
-            <div class="col s4 player1">
+            <div class="col s3 player1">
               <img src="/stylesheets/img/player1.svg" alt="PLAYER ONE">
               <h3>IA Player 1</h3>
             </div>
-            <div class="col s4 counter">
+            <div class="col s6 counter">
               <div class="countdown countdown-container container">
                   <div class="clock row">
                       <div class="clock-item clock-seconds countdown-time-value col-sm-6 col-md-3">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col s4 player2">
+            <div class="col s3 player2">
               <h3>IA Player 2</h3>
               <img src="/stylesheets/img/player2.svg" alt="PLAYER TWO">
             </div>
@@ -101,7 +101,7 @@
             'nowS': 1491913618
         });
         function refreshData(callback) {
-            var intervalHolder = setInterval(function() {
+            // var intervalHolder = setInterval(function() {
                 $.ajax({
                     url: "http://" + window.location.host + "/turn/" + <%= id %>,
                     success: function(data) {
@@ -112,7 +112,7 @@
                         window.location.href = "http://" + window.location.host;
                     }
                 });
-            }, 500); //0.5 seconds
+            // }, 500); //0.5 seconds
         }
         function clickOnCell(i, j) {
             $.ajax({

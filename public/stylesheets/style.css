@@ -53,7 +53,7 @@ td:hover{
 
 .toast{
   border-radius: 2px;
-    top: 35px;
+    top: -65px !important;
     width: auto;
     clear: both;
     margin-top: 10px;

@@ -43,7 +43,7 @@ body {
         display: -ms-flexbox;
         display: flex; }
         body nav .nav-wrapper .counter .clock-item .inner {
-          width: 30%;
+          width: 22%;
           margin: 0 auto; }
           body nav .nav-wrapper .counter .clock-item .info {
             margin-top: -24px;
