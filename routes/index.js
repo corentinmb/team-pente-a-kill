@@ -251,11 +251,17 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                   console.log(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)));
                 }
+                else{
+                  return false;
+                }
               }
               if (direction == "south"){
                 if ((parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >= 0)){
                   console.log(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)));
+                }
+                else{
+                  return false;
                 }
               }
               if (direction == "east"){
@@ -263,11 +269,17 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                   console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)));
                 }
+                else{
+                  return false;
+                }
               }
               if (direction == "west"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0)){
                   console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)));
+                }
+                else{
+                  return false;
                 }
               }
               if (direction == "northEast"){
@@ -275,11 +287,17 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                   console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)));
                 }
+                else{
+                  return false;
+                }
               }
               if (direction == "southEast"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
                   console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
+                }
+                else{
+                  return false;
                 }
               }
               if (direction == "southWest"){
@@ -287,11 +305,17 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                   console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
                 }
+                else{
+                  return false;
+                }
               }
               if (direction == "northWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
                   console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)));
+                }
+                else{
+                  return false;
                 }
               }
             }
