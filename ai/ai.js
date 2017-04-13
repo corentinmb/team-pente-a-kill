@@ -208,7 +208,7 @@ function brain() {
                 var a = directions[k];
 
                 // adjacent piece of either color
-                if (IAconfig.getPiece(i, j, a, 1) != 0) {
+                if (IAconfig.getPiece(i, j, a, 1)) {
                     strength += 1;
                 }
 
@@ -385,7 +385,7 @@ function brain() {
                     strength += Math.random() * 7;
                     break;
                 case "Hard":
-                    strength += Math.random() * 2;
+                    strength += Math.random();
                     break;
                 default:
                     //console.log("ERROR: difficulty not set correctly!");
