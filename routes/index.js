@@ -7,6 +7,9 @@ var id2 = null;
 var numbegin = null;
 var firsttour = true;
 var secondtour = null;
+var timepartiestart = null;
+var timepartieend = null;
+var timetour = null;
 
 
 /* GET home page. */
@@ -60,10 +63,30 @@ router.get('/connect/:groupName', function(req, res, next) {
 /* GET play */
 router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
   if (game && game.finpartie == false){
+    //On regarde si c'est la prolongation
+    if(timepartiestart != null && (game.prolongation == false)){
+      timepartieend = new Date().getTime();
+      var calcultemps = ((parseInt(timepartieend)-parseInt(timepartiestart)));
+      console.log(calcultemps);
+      if(calcultemps >=600000){
+        if((game.nbtenaillesj1 > game.nbtenaillesj2) || (game.nbtenaillesj2 > game.nbtenaillesj1)){
+          game.setfinpartie();
+          if(game.nbtenaillesj1 > game.nbtenaillesj2){
+              game.setdetailfinpartie('Victoire du joueur 1 (temps écoulé et plus de tenailles)')
+          }
+          else{
+               game.setdetailfinpartie('Victoire du joueur 2 (temps écoulé et plus de tenailles)')
+          }
+        }
+        else{
+            game.setProlongation();
+        }
+      }
+    }
   	if(((req.params.idJoueur == game.player2.idJoueur) && (game.player2.numJoueur == game.joueurcourant))||((req.params.idJoueur == game.player1.idJoueur) && (game.player1.numJoueur == game.joueurcourant))){
       if (parseInt(req.params.x)>=0 && parseInt(req.params.x)<19 && parseInt(req.params.y)>=0 && parseInt(req.params.y)<19){
     		if ((game.board.pionHere(parseInt(req.params.x),parseInt(req.params.y)) == false)){
-          if(firsttour == false && secondtour == false){
+          if(firsttour == false && secondtour == false && game.finpartie == false){
             game.incrTour();
       		  game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
             //On teste si c'est gagné
@@ -79,7 +102,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             getPieceRelative = function(direction, distance) {
               if (direction == "north"){
                 if ((parseInt(req.params.y)-parseInt(distance) < 19) && (parseInt(req.params.y)-parseInt(distance) >= 0)){
-                  console.log(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
                 }
                 else{
@@ -88,7 +110,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "south"){
                 if ((parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >= 0)){
-                  console.log(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
                 }
                 else{
@@ -97,7 +118,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "east"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0)){
-                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
                 }
                 else{
@@ -106,7 +126,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "west"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0)){
-                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)) == game.joueurcourant);
                 }
                 else{
@@ -115,7 +134,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "northEast"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
                 }
                 else{
@@ -124,7 +142,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "southEast"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
                 }
                 else{
@@ -133,7 +150,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "southWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)) == game.joueurcourant);
                 }
                 else{
@@ -142,7 +158,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "northWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)) == game.joueurcourant);
                 }
                 else{
@@ -153,7 +168,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
 
             // Count the number of pieces in each direction
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE1");
               if (this.getPieceRelative("north",i)) {
                 north++;
               }
@@ -162,7 +176,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE2");
               if (this.getPieceRelative("south",i)) {
                 south++;
               }
@@ -171,7 +184,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE3");
               if (this.getPieceRelative("east",i)) {
                 east++;
               }
@@ -180,7 +192,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE4");
               if (this.getPieceRelative("west",i)) {
                 west++;
               }
@@ -189,7 +200,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE5");
               if (this.getPieceRelative("northWest",i)) {
                 northWest++;
               }
@@ -198,7 +208,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE6");
               if (this.getPieceRelative("southWest",i)) {
                 southWest++;
               }
@@ -207,7 +216,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE7");
               if (this.getPieceRelative("northEast",i)) {
                 northEast++;
               }
@@ -216,7 +224,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
             }
             for (var i = 1; i < 5; i ++) {
-              console.log("PASSE8");
               if (this.getPieceRelative("southEast",i)) {
                 southEast++;
               }
@@ -248,7 +255,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
             getNumPion = function(direction, distance) {
               if (direction == "north"){
                 if ((parseInt(req.params.y)-parseInt(distance) < 19) && (parseInt(req.params.y)-parseInt(distance) >= 0)){
-                  console.log(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)-parseInt(distance)));
                 }
                 else{
@@ -257,7 +263,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "south"){
                 if ((parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >= 0)){
-                  console.log(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x),parseInt(req.params.y)+parseInt(distance)));
                 }
                 else{
@@ -266,7 +271,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "east"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0)){
-                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)));
                 }
                 else{
@@ -275,7 +279,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "west"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0)){
-                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)));
                 }
                 else{
@@ -284,7 +287,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "northEast"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)-parseInt(distance)));
                 }
                 else{
@@ -293,7 +295,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "southEast"){
                 if ((parseInt(req.params.x)+parseInt(i) < 19) && (parseInt(req.params.x)+parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)+parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
                 }
                 else{
@@ -302,7 +303,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "southWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)+parseInt(i) < 19) && (parseInt(req.params.y)+parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)+parseInt(distance)));
                 }
                 else{
@@ -311,7 +311,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               }
               if (direction == "northWest"){
                 if ((parseInt(req.params.x)-parseInt(i) < 19) && (parseInt(req.params.x)-parseInt(i) >= 0) && (parseInt(req.params.y)-parseInt(i) < 19) && (parseInt(req.params.y)-parseInt(i) >=0)){
-                  console.log(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance));
                   return (game.board.getPion(parseInt(req.params.x)-parseInt(distance),parseInt(req.params.y)-parseInt(distance)));
                 }
                 else{
@@ -329,7 +328,6 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
               else{
                 ennemi = 1;
               }
-              console.log('PASSE9');
                if (this.getNumPion(a, 1) == ennemi &&
                   this.getNumPion(a, 2) == ennemi &&
                   this.getNumPion(a, 3) == game.joueurcourant) {
@@ -343,7 +341,12 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                 if (game.joueurcourant == 2) game.incrNbtenaillesj2();
                 if (game.nbtenaillesj1 == 5 || game.nbtenaillesj2 == 5) {
                   game.setfinpartie()
-                  game.setdetailfinpartie('Victoire du joueur'+game.joueurcourant+' avec 5 tenailles')
+                  game.setdetailfinpartie('Victoire du joueur '+game.joueurcourant+' avec 5 tenailles')
+                  break;
+                }
+                if (game.prolongation == true){
+                  game.setfinpartie()
+                  game.setdetailfinpartie('Victoire du joueur '+game.joueurcourant+' avec 1 tenaille en prolongation')
                   break;
                 }
               }
@@ -364,6 +367,8 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
           else{
             if (firsttour == true && parseInt(req.params.x) == 9 && parseInt(req.params.y) == 9){
               game.incrTour();
+              //On initialise le temps
+              timepartiestart = new Date().getTime();
               game.board.setPion(parseInt(req.params.x),parseInt(req.params.y),game.joueurcourant);
               firsttour = false;
               secondtour = true;
