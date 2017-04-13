@@ -16,6 +16,15 @@
                 sendRequest(inputvalue);
             });
 
+            $('#buttonSpec').click(function(e) {
+                var inputvalue = $("#inputSpec").val();
+                spectate(inputvalue);
+            });
+
+            function spectate(inputvalue) {
+                window.location.href = "http://" + window.location.host + "/board/" + inputvalue;
+            }
+
             function sendRequest(inputvalue) {
                 $.ajax({
                     url: "http://" + window.location.host + "/connect/" + inputvalue
@@ -35,8 +44,10 @@
 </head>
 
 <body>
-
-    <input type="text" autofocus placeholder="Entrez une ville" id="input">
+    Ouvrir le mode spectateur:
+    <input type="text" placeholder="ID du joueur" id="inputSpec">
+    <button type="button" id="buttonSpec">Voir la partie</button> <br> Jouer:
+    <input type="text" autofocus placeholder="Entrez un nom d'équipe" id="input">
     <button type="button" id="button">Connexion</button>
 </body>
 

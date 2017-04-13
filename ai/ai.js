@@ -71,16 +71,16 @@ function move(b){
     if(b.status == 1){
       // C'est a moi (l'IA) de jouer
       log.info("A moi de jouer... (Tour " + b.numTour + ")")
-      if(b.numTour == 1){
+      if(b.numTour == 0){
         // Ici on a pas le choix... On joue au centre
         log.info("Tour 1: Je joue au centre...")
         play(9,9);
-      } else if (b.numTour == 2){
+      } else if (b.numTour == 1){
         var x = getRand(6,12);
         var y = getRand(6,12);
         log.info("Tour 2: Je joue dans le cadre du milieu en " + x + ";" + y + "...")
         play(x,y);
-      } else if (b.numTour > 2){
+      } else if (b.numTour > 1){
         var x = getRand(0,18);
         var y = getRand(0,18);
         log.info("Tour " + b.numTour + ": Je joue en " + x + ";" + y + "...")
@@ -100,10 +100,11 @@ if (init()) {
     connect(printInConsole);
       var intervalHolder = setInterval(function() {
         if(!finPartie){
-          turn(move)
+          turn(move);
         } else {
           clearInterval(intervalHolder);
+          log.info("Partie terminée:")
+          log.info(IAconfig.dataTurn.detailFinPartie)
         }
       },500);
-    log.info("Partie terminée.")
 }
