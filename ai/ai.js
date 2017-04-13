@@ -208,7 +208,7 @@ function brain() {
                 var a = directions[k];
 
                 // adjacent piece of either color
-                if (IAconfig.getPiece(i, j, a, 1) == 0) {
+                if (IAconfig.getPiece(i, j, a, 1) != 0) {
                     strength += 1;
                 }
 
@@ -267,7 +267,7 @@ function brain() {
                 // try to make a 3-in-row if pair exists (merge with b1?) (b4.a)
                 if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
                     IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayer &&
-                    IAconfig.getPiece(i, j, a, 3)) {
+                    IAconfig.getPiece(i, j, a, 3) != 0) {
                     strength += 4;
                     //console.log('[brain] making 3-in-row ' + IAconfig.coordString(i, j));
                 }
@@ -285,7 +285,7 @@ function brain() {
                 // attack opponent's undefended pair (b5)
                 if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponent() &&
                     IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
-                    IAconfig.getPiece(i, j, a, 3)) {
+                    IAconfig.getPiece(i, j, a, 3) != 0) {
                     strength += 1;
                     //console.log('[brain] attacking undefended pair');
                 }
@@ -293,7 +293,7 @@ function brain() {
                 // don't set up a vulnerable pair (b6.a)
                 if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
                     IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
-                    IAconfig.getPiece(i, j, oppositeDirection(a), 1)) {
+                    IAconfig.getPiece(i, j, oppositeDirection(a), 1) != 0) {
                     strength -= 8;
                     //console.log('[brain] preventing setting up vulnerable pair (b6.a)');
                 }
@@ -301,7 +301,7 @@ function brain() {
                 // don't set up a vulnerable pair (b6.b)
                 if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
                     IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentOpponent() &&
-                    IAconfig.getPiece(i, j, a, 2)) {
+                    IAconfig.getPiece(i, j, a, 2) != 0) {
                     strength -= 8;
                     //console.log('[brain] preventing setting up vulnerable pair (b6.b)');
                 }

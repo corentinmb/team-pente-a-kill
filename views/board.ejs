@@ -52,7 +52,7 @@
         function setData(result) {
             var mydata = eval(result);
             if (mydata) {
-                var table = arrayToTable(mydata.tableau.board);
+                var table = arrayToTable(mydata.tableau);
                 $("#board").html(table);
                 if (mydata.status == 1)
                     $("#whoPlays").html("A toi de jouer !");
