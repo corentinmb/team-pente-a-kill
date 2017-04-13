@@ -455,7 +455,7 @@ router.get('/turn/:idJoueur', function(req, res, next) {
 /* GET turn */
 router.get('/reset', function(req, res, next) {
   game = null;
-  res.sendStatus(200)
+  res.redirect('/')
 });
 
 module.exports = router;
