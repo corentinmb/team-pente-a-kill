@@ -1,41 +1,52 @@
-* {
-  font-family: arial;
-}
-
-body {
-  padding: 50px;
-}
+/*
 
 a {
   color: #00B7FF;
 }
 
 table {
-  background: #E9C372;
+  background: rgba(255,255,255,0.3);
+  background:#18415F;
+  width: 20% !important;
+  height: 200px;
 }
 
 td {
-    width: 40px;
-    height: 40px;
+    width: 0px;
+    height: 0px;
     text-align: center;
     cursor: pointer;
 }
 td:hover{
-  background-color:#D8B25D
+  background: none;
+}
+.boardStyle{
+  width: 100px;
+  height: 100px
+}*/
+#board{
+  margin-top: -30px;
+}
+#board > table > tbody > tr > td > img{
+  width: 28px !important;
+  margin-bottom: -5px !important;
+}
+#board > table > tbody > tr > td{
+  padding: 0 !important;
+  text-align: center;
+  cursor: pointer;
+}
+#board > table > tbody > tr > td:hover{
+  background: none;
+}
+#board > table{
+  width: 0;
+}
+.center{
+  display: flex;
+  justify-content: center;
 }
 
-.circleb {
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
-  background-color:black;
-	/* width and height can be anything, as long as they're equal */
-}
-
-.circlew {
-	border-radius: 50%;
-	width: 40px;
-	height: 40px;
-  background-color:white;
-	/* width and height can be anything, as long as they're equal */
+.case{
+  width: 25px;
 }

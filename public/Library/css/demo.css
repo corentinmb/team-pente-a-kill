@@ -1,17 +1,27 @@
 .countdown-container {
 	position: relative;
-	margin-top:150px;
+	margin-top:40px;
+	height: 100px;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
 	transform: translateY(-50%);
+	margin-bottom: -200px;
 
+}
+
+.clock .row{
+	height: 100px;
+}
+
+.clock-item .clock-seconds .countdown-time-value .col-sm-6 .col-md-3{
+	height: 100px;
 }
 
 .clock-item .inner {
 	height: 0px;
-	padding-bottom: 100%;
-	position: relative;	
+	/*padding-bottom: 100%;*/
+	position: relative;
 	width: 100%;
 }
 
@@ -21,12 +31,15 @@
 	height: 0px;
 	padding-bottom: 100%;
 }
+.top {
+	margin-top: 25px;
+}
 
 .text {
-	color: #fff;	
+	color: #fff;
 	font-size: 30px;
-	font-weight: bold;	
-	margin-top: -50px;
+	font-weight: bold;
+	margin-top: -64px;
 	position: absolute;
 	top: 50%;
 	text-align: center;
@@ -35,7 +48,7 @@
 }
 
 .text .val {
-	font-size: 50px;
+	font-size: 30px;
 }
 
 .text .type-time {
@@ -44,7 +57,7 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
 	.clock-item {
-		margin-bottom: 30px;		
+		margin-bottom: 30px;
 	}
 }
 

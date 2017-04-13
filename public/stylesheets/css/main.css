@@ -21,9 +21,9 @@ body {
         -ms-flex-align: center;
         align-items: center; }
         body nav .nav-wrapper .player1 img {
-          height: 120px; }
+          height: 70px; }
         body nav .nav-wrapper .player1 h3 {
-          font-size: 2em; }
+          font-size: 1em; }
       body nav .nav-wrapper .player2 {
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -35,18 +35,19 @@ body {
         -ms-flex-align: center;
         align-items: center; }
         body nav .nav-wrapper .player2 img {
-          height: 120px; }
+          height: 77px; }
         body nav .nav-wrapper .player2 h3 {
-          font-size: 2em; }
+          font-size: 1em; }
       body nav .nav-wrapper .counter {
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex; }
         body nav .nav-wrapper .counter .clock-item .inner {
-          width: 42%;
+          width: 30%;
           margin: 0 auto; }
-          body nav .nav-wrapper .counter .clock-item .inner .info {
-            margin-top: -10px;
+          body nav .nav-wrapper .counter .clock-item .info {
+            margin-top: -24px;
+            margin-bottom: -15px;
             display: -webkit-flex;
             display: -ms-flexbox;
             display: flex;
@@ -54,9 +55,20 @@ body {
             -ms-flex-pack: center;
             justify-content: center;
             font-size: 14px; }
+          body nav .nav-wrapper .counter .clock-item .info2 {
+            width: 172px;
+            margin-top: -24px;
+            margin-bottom: -40px;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: flex-end;
+            font-size: 14px; }
         body nav .nav-wrapper .counter .text {
-          margin-top: none;
-          top: 9%; }
+          margin-top: -25px;
+          top: 15%; }
           body nav .nav-wrapper .counter .text .val_seconds {
-            margin-top: -40px;
+            margin-top: -44px;
             font-size: 10px; }
