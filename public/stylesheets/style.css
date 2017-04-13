@@ -50,3 +50,41 @@ td:hover{
 .case{
   width: 25px;
 }
+
+.toast{
+  border-radius: 2px;
+    top: 35px;
+    width: auto;
+    clear: both;
+    margin-top: 10px;
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    min-height: 48px;
+    line-height: 1.5em;
+    word-break: break-all;
+    background-color: rgba(255,255,255,0.3) !important;
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #fff;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+#toast-container{
+  top: 17% !important;
+  right: 43.7% !important;
+}
+
+#whoPlays{
+  display: flex;
+  justify-content: center;
+  margin-top: -60px;
+}

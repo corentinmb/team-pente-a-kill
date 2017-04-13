@@ -141,15 +141,15 @@
         }
         function setData(result) {
             var mydata = eval(result);
-            if (mydata) {
+            if (mydata.tableau.board) {
                 var table = arrayToTable(mydata.tableau.board);
                 $("#board").html(table);
                 if (mydata.status == 1)
-                    $("#whoPlays").html("A toi de jouer !");
+                    $("#whoPlays").html("<div class='toast'>A toi de jouer !</div>");
                 else
-                    $("#whoPlays").html("Merci de patienter...");
+                    $("#whoPlays").html("<div class='toast'>Merci de patienter...</div>");
             } else {
-                $("#board").html("En attente d'un autre joueur...");
+                $("#whoPlays").html("<div class='toast'>En attente d'un autre joueur...</div>");
             }
         }
         refreshData(setData);
