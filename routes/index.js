@@ -59,7 +59,7 @@ router.get('/connect/:groupName', function(req, res, next) {
 
 /* GET play */
 router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
-  if (game.finpartie == false){
+  if (game && game.finpartie == false){
   	if(((req.params.idJoueur == game.player2.idJoueur) && (game.player2.numJoueur == game.joueurcourant))||((req.params.idJoueur == game.player1.idJoueur) && (game.player1.numJoueur == game.joueurcourant))){
       if (parseInt(req.params.x)>=0 && parseInt(req.params.x)<19 && parseInt(req.params.y)>=0 && parseInt(req.params.y)<19){
     		if ((game.board.pionHere(parseInt(req.params.x),parseInt(req.params.y)) == false)){
