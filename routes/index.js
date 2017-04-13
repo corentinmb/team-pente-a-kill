@@ -77,6 +77,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
           else{
                game.setdetailfinpartie('Victoire du joueur 2 (temps écoulé et plus de tenailles)')
           }
+          res.sendStatus(200);
         }
         else{
             game.setProlongation();
