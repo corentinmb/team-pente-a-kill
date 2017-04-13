@@ -1,0 +1,63 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:100,400,700);
+@import "../colors.scss";
+
+body{
+  background-color: $background;
+  height: 90vh;
+  margin-bottom: 2% !important;
+
+  font-family:Raleway, Open Sans, Droid Sans, Roboto,arial, sans-serif;
+
+  nav{
+    height: 150px !important;
+    background-color: $none;
+    box-shadow: none !important;
+
+    .nav-wrapper{
+      margin-top: 20px;
+      .player1{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        img{
+          height: 120px;
+        }
+        h3{
+          font-size: 2em;
+        }
+      }
+      .player2{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        img{
+          height: 120px;
+        }
+        h3{
+          font-size: 2em;
+        }
+      }
+      .counter{
+        display: flex;
+        .clock-item .inner{
+          width: 42%;
+          margin: 0 auto;
+          .info{
+            margin-top: -10px;
+            display: flex;
+            justify-content: center;
+            font-size: 14px;
+          }
+        }
+        .text{
+          margin-top: none;
+          top: 9%;
+          .val_seconds{
+            margin-top: -40px;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}
