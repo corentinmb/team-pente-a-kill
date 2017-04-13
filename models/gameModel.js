@@ -57,5 +57,9 @@ Game.prototype.setdetailfinpartie = function(texte){
   this.detailfinpartie = texte;
 }
 
+Game.prototype.setProlongation = function(){
+  this.prolongation = true;
+}
+
 // export the class
 module.exports = Game;
