@@ -6,7 +6,7 @@ var IAconfig = {
   nomEquipe: null,
   dataConnect: null,
   dataTurn: null,
-  currentPlayerColor: '',
+  currentPlayer: null,
   pieces: {},
   difficulty: "Hard",
   getPiece: function(x, y, direction, distance) {
@@ -19,6 +19,16 @@ var IAconfig = {
     if (direction == "southEast") return this.pieces[this.coordString(x + distance, y + distance)];
     if (direction == "southWest") return this.pieces[this.coordString(x - distance, y + distance)];
     if (direction == "northWest") return this.pieces[this.coordString(x - distance, y - distance)];
+  },
+  getCoordString: function(x, y, direction, distance) {
+    if (direction == "north") return this.coordString(x, y - distance);
+    if (direction == "south") return this.coordString(x, y + distance);
+    if (direction == "east") return this.coordString(x + distance, y);
+    if (direction == "west") return this.coordString(x - distance, y);
+    if (direction == "northEast") return this.coordString(x + distance, y - distance);
+    if (direction == "southEast") return this.coordString(x + distance, y + distance);
+    if (direction == "southWest") return this.coordString(x - distance, y + distance);
+    if (direction == "northWest") return this.coordString(x - distance, y - distance);
   },
   coordinates: function(spot) { // takes 4-digit string, returns array with [x, y]
     // console.log('[coordinates] input: ' + spot);
@@ -38,11 +48,11 @@ var IAconfig = {
        //console.log ('[coordString] returning: ' + column + roww);
       return column + roww;
   },
-  currentOpponentColor: function() {
+  currentOpponent: function() {
     if (this.dataConnect.nomJoueur == 1) {
-      return 'white';
+      return 2;
     } else {
-      return 'black';
+      return 1;
     }
   },
   copyAndParsePiecesArray: function(){
@@ -52,7 +62,7 @@ var IAconfig = {
         this.pieces[this.coordString(i,j)] = this.dataTurn.tableau.board[i][j];
       }
     }
-    //console.log(this.pieces)
+    console.log(this.pieces)
   }
 };
 
@@ -98,8 +108,8 @@ function connect(callback) {
         if (response && response.statusCode == 200) {
           log.info("IA connectée avec succès !")
           IAconfig.dataConnect = JSON.parse(body);
-          IAconfig.currentPlayerColor = IAconfig.dataConnect.numJoueur == 1 ? 'black' : 'white';
-          //console.log(IAconfig.currentPlayerColor);
+          IAconfig.currentPlayer = IAconfig.dataConnect.numJoueur;
+          //console.log(IAconfig.currentPlayer);
           callback(IAconfig.dataConnect);
         } else {
           process.on('exit', (code) => {
@@ -135,10 +145,6 @@ function getRand(min, max) {
   return Math.floor(Math.random() * (max - min +1)) + min;
 }
 
-function caseDisponible(x,y){
-  return IAconfig.dataTurn.tableau[x][y] == 0 ? true : false;
-}
-
 function parseCoord(d){
   var coord = {
     x : null,
@@ -169,10 +175,10 @@ function move(b){
         //var x = getRand(0,18);
         //var y = getRand(0,18);
         var move = brain();
-        if (!IAconfig.pieces[move]) { // if the move is unoccupied, it's a legal move
-          IAconfig.pieces[move] = IAconfig.currentPlayerColor;
+        if (IAconfig.pieces[move] == 0) { // if the move is unoccupied, it's a legal move
+          IAconfig.pieces[move] = IAconfig.currentPlayer;
+          move = parseCoord(move);
           log.info("Tour " + b.numTour + ": Je joue en " + move.x + ";" + move.y + "...")
-          move = parseCoord(move)
           play(move.x,move.y);
         }
       }
@@ -195,7 +201,7 @@ function brain() {
   for (var i = 0; i < 19; i++) {
     for (var j = 0; j < 19; j++) {
       var possibility = IAconfig.coordString(i,j); // spot we're considering right now
-      if (IAconfig.pieces[possibility]) {
+      if (IAconfig.pieces[possibility] != 0) {
         // console.log('[brain] just skipped considering spot ' + possibility + ' that already has a piece');
         continue;
       }
@@ -204,16 +210,16 @@ function brain() {
         var a = directions[k];
 
         // adjacent piece of either color
-        if (IAconfig.getPiece(i, j, a, 1)) {
+        if (IAconfig.getPiece(i, j, a, 1) != 0) {
           strength += 1;
         }
 
         if (strength == 0) continue;
 
         // pair that can be stolen (b1)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayerColor) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayer) {
           strength += 10;
           console.log('[brain] found pair to steal ' + IAconfig.coordString(i,j));
 
@@ -224,15 +230,15 @@ function brain() {
             var subDirections = perpendicularDirections(a);
             for (var l = 0; l < 3; l ++) { // once for each of three possible directions...
               if (
-                  ( IAconfig.IAconfig(x, y, subDirections[l], 1) == IAconfig.currentOpponentColor() &&
-                    IAconfig.IAconfig(x, y, oppositeDirection(subDirections[l]), 1) == IAconfig.currentOpponentColor()
+                  ( IAconfig.getPiece(x, y, subDirections[l], 1) == IAconfig.currentOpponent() &&
+                    IAconfig.getPiece(x, y, oppositeDirection(subDirections[l]), 1) == IAconfig.currentOpponent()
                   ) || (
                     (
-                    IAconfig.getPiece(x, y, subDirections[l], 1) == IAconfig.currentOpponentColor() &&
-                    IAconfig.getPiece(x, y, subDirections[l], 2) == IAconfig.currentOpponentColor()
+                    IAconfig.getPiece(x, y, subDirections[l], 1) == IAconfig.currentOpponent() &&
+                    IAconfig.getPiece(x, y, subDirections[l], 2) == IAconfig.currentOpponent()
                     ) || (
-                    IAconfig.getPiece(x, y, oppositeDirection(subDirections[l]), 1) == IAconfig.currentOpponentColor() &&
-                    IAconfig.getPiece(x, y, oppositeDirection(subDirections[l]), 2) == IAconfig.currentOpponentColor()
+                    IAconfig.getPiece(x, y, oppositeDirection(subDirections[l]), 1) == IAconfig.currentOpponent() &&
+                    IAconfig.getPiece(x, y, oppositeDirection(subDirections[l]), 2) == IAconfig.currentOpponent()
                     )
                   )
                  ) {
@@ -244,71 +250,71 @@ function brain() {
         }
 
         // defend vulnerable pair (b2)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentOpponentColor()) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentOpponent()) {
           strength += 10;
           console.log('[brain] found vulnerable pair ' + IAconfig.coordString(i,j));
         }
 
         // block 3-in-row (b3)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 4) != IAconfig.currentPlayerColor) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 4) != IAconfig.currentPlayer) {
           strength += 15;
           console.log('[brain] blocking 3-in-row ' + IAconfig.coordString(i,j));
         }
 
         // try to make a 3-in-row if pair exists (merge with b1?) (b4.a)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayerColor &&
-            !IAconfig.getPiece(i, j, a, 3)) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 3) == 0) {
           strength += 4;
           console.log('[brain] making 3-in-row ' + IAconfig.coordString(i,j));
         }
 
         // try to make a 3-in-row if two orphans exist (b4.b)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) != IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 2) != IAconfig.currentOpponentColor()
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) != IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 2) != IAconfig.currentOpponent()
             ) {
           strength += 4;
           console.log('[brain] making 3-in-row with orphans (this should execute twice if at all (b4.b)');
         }
 
         // attack opponent's undefended pair (b5)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            !IAconfig.getPiece(i, j, a, 3)) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 3) == 0) {
           strength += 1;
           console.log('[brain] attacking undefended pair');
         }
 
         // don't set up a vulnerable pair (b6.a)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            !IAconfig.getPiece(i, j, oppositeDirection(a), 1)) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == 0) {
           strength -= 8;
           console.log('[brain] preventing setting up vulnerable pair (b6.a)');
         }
 
         // don't set up a vulnerable pair (b6.b)
-        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentOpponentColor() &&
-            !IAconfig.getPiece(i, j, a, 2)) {
+        if (IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 2) == 0) {
           strength -= 8;
           console.log('[brain] preventing setting up vulnerable pair (b6.b)');
         }
 
         // prevent 4-in-a-row (b7.a)
         if (
-            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 2) != IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 3) != IAconfig.currentPlayerColor
+            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 2) != IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 3) != IAconfig.currentPlayer
            ) {
           strength += 10;
           console.log('[brain] preventing 4-in-a-row (b7.a)');
@@ -316,10 +322,10 @@ function brain() {
 
         // prevent 4-in-a-row (b7.a)
         if (
-            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentOpponentColor() &&
-            IAconfig.getPiece(i, j, a, 4) != IAconfig.currentPlayerColor
+            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentOpponent() &&
+            IAconfig.getPiece(i, j, a, 4) != IAconfig.currentPlayer
            ) {
           strength += 10;
           console.log('[brain] preventing 4-in-a-row (b7.b)');
@@ -327,10 +333,10 @@ function brain() {
 
         // win (b8.a)
         if (
-            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 2) == IAconfig.currentPlayerColor
+            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 2) == IAconfig.currentPlayer
            ) {
           strength += 15;
           console.log('[brain] found 5-in-a-row (b8.a)');
@@ -338,10 +344,10 @@ function brain() {
 
         // win (b8.b)
         if (
-            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentPlayerColor
+            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, oppositeDirection(a), 1) == IAconfig.currentPlayer
            ) {
           strength += 15;
           console.log('[brain] found 5-in-a-row (b8.b)');
@@ -349,10 +355,10 @@ function brain() {
 
         // win (b8.c)
         if (
-            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayerColor &&
-            IAconfig.getPiece(i, j, a, 4) == IAconfig.currentPlayerColor
+            IAconfig.getPiece(i, j, a, 1) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 2) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 3) == IAconfig.currentPlayer &&
+            IAconfig.getPiece(i, j, a, 4) == IAconfig.currentPlayer
            ) {
           strength += 15;
           console.log('[brain] found 5-in-a-row (b8.c)');
@@ -361,11 +367,11 @@ function brain() {
 
       if (strength > 3) { // for promising spots, we're going to do a little extra work
         for (var l = 1; l < 4; l++) {
-          if (IAconfig.getPiece(i, j, a, l) == IAconfig.currentPlayerColor) {
+          if (IAconfig.getPiece(i, j, a, l) == IAconfig.currentPlayer) {
             strength += 4 - l; // adjacent pieces add 3,
           }
           console.log('[brain] adding score for possible nearby pieces ' + IAconfig.coordString(i,j));
-          if (IAconfig.getPiece(i, j, a, l) == IAconfig.currentOpponentColor()) break;
+          if (IAconfig.getPiece(i, j, a, l) == IAconfig.currentOpponent()) break;
         }
       }
 

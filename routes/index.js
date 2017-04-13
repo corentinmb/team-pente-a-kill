@@ -490,6 +490,9 @@ router.get('/turn/:idJoueur', function(req, res, next) {
 /* GET turn */
 router.get('/reset', function(req, res, next) {
   game = null;
+  timepartiestart = null;
+  timepartieend = null;
+  timetour = null;
   res.redirect('/')
 });
 
