@@ -13,7 +13,7 @@ function Game() {
   this.prolongation = false;
   this.finpartie = false;
   this.detailfinpartie = '';
-  this.numTour = 1;
+  this.numTour = 0;
   this.joueurcourant = null;
 }
 
