@@ -141,8 +141,8 @@
         }
         function setData(result) {
             var mydata = eval(result);
-            if (mydata) {
-                var table = arrayToTable(mydata.tableau);
+            if (mydata.tableau.board) {
+                var table = arrayToTable(mydata.tableau.board);
                 $("#board").html(table);
                 if (mydata.status == 1)
                     $("#whoPlays").html("<div class='toast'>A toi de jouer !</div>");
