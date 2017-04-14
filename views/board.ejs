@@ -87,6 +87,7 @@
             </div>
         </div>
     </section>
+    <a class="waves-effect waves-light btn btnModal" href="#modalFinPartie">Modal</a>
     <div id="modalFinPartie" class="modal">
         <div class="modal-content">
             <h4 id="contenuFinPartie"></h4>
@@ -101,6 +102,12 @@
     <script type="text/javascript" src="/Library/js/countdownMinute.js"></script>
     <script type="text/javascript" src="/Library/js/jquery.final-countdown.js"></script>
     <script type="text/javascript">
+      $(document).ready(function(){
+        document.getElementsByClassName('btnModal').onclick = function func(){
+          $('.modal').modal();
+        }
+      }
+
         $('.countdown').final_countdown({
             // 'start': 1491913548,
             // 'end': 1491913558,
@@ -172,11 +179,9 @@
                 $('#valueTJ2').html(mydata.nbTenaillesJ2);
 
                 if (mydata.finPartie) {
-                    $('#modalFinPartie').modal('open');
-                    $('#contenuFinPartie').html(mydata.detailFinPartie);
-                    // window.onload = function() {
-                    //     $('.modalFinPartie').click();
-                    // };
+
+                      $('.btnModal').click();
+                      $('#contenuFinPartie').html(mydata.detailFinPartie);
                 }
             } else {
                 $("#whoPlays").html("<div class='toast'>En attente d'un autre joueur...</div>");
