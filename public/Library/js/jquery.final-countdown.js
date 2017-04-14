@@ -91,7 +91,7 @@
     function dispatchTimer() {
         timer = {
             total: Math.floor((settings.endS - settings.startS) / 14400),
-            seconds: 10 - Math.floor((((settings.endS - settings.nowS) % 14400) % 600) % 10 )
+            seconds: 12 - Math.floor((((settings.endS - settings.nowS) % 14400) % 600) % 12 )
         }
     }
 
@@ -112,10 +112,10 @@
                 var y = seconds_width / 2;
 
                 context.beginPath();
-                context.arc(x, y, radius, convertToDeg(0), convertToDeg(timer.seconds * 36.5));
+                context.arc(x, y, radius, convertToDeg(0), convertToDeg(timer.seconds * 30));
                 context.fillStrokeShape(this);
 
-                $(settings.selectors.value_seconds).html(10 - timer.seconds);
+                $(settings.selectors.value_seconds).html(12 - timer.seconds);
             },
             stroke: settings.seconds.borderColor,
             strokeWidth: settings.seconds.borderWidth
@@ -128,7 +128,7 @@
 
     function startCounters() {
         var interval = setInterval( function() {
-            if (timer.seconds > 9 ) {
+            if (timer.seconds > 11 ) {
 
                 timer.seconds = 1;
             } else {
