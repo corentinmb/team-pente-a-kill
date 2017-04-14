@@ -56,7 +56,7 @@ router.get('/connect/:groupName', function(req, res, next) {
                 "nomJoueur": game.player2.nomJoueur
             })
         }
-        res.sendStatus(401);
+        return res.sendStatus(401);
     }
 });
 
@@ -76,7 +76,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                     } else {
                         game.setdetailfinpartie('Victoire du joueur 2 (temps écoulé et plus de tenailles)')
                     }
-                    res.sendStatus(200);
+                    return res.sendStatus(200);
                 } else {
                     game.setProlongation();
                 }
@@ -221,7 +221,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                             if (north + south >= 4 || east + west >= 4 || northEast + southWest >= 4 || northWest + southEast >= 4) { // player wins
                                 game.setfinpartie()
                                 game.setdetailfinpartie('Victoire du joueur' + game.joueurcourant + ' ligne de 5 pions')
-                                res.sendStatus(200);
+                                return res.sendStatus(200);
                             }
 
 
@@ -329,6 +329,9 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                                     }
                                 }
                             }
+                            if (game.numTour == 2 && secondtour == false){
+                                secondtour=true;
+                            }
 
                             //Set dernier coup et à qui de jouer
                             if (game.joueurcourant == 1) {
@@ -339,7 +342,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                                 game.setJoueurcourant(1)
                             }
                             timetour = new Date().getTime();
-                            res.sendStatus(200);
+                            return res.sendStatus(200);
                         } else {
                             game.setfinpartie();
                             if (game.joueurcourant == 1) {
@@ -347,7 +350,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                             } else {
                                 game.setdetailfinpartie('Victoire du joueur 1 (trop de temps à jouer)');
                             }
-                            res.sendStatus(200);
+                            return res.sendStatus(200);
                         }
                     } else {
                         if (firsttour == true && parseInt(req.params.x) == 9 && parseInt(req.params.y) == 9) {
@@ -356,7 +359,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                             timepartiestart = new Date().getTime();
                             game.board.setPion(parseInt(req.params.x), parseInt(req.params.y), game.joueurcourant);
                             firsttour = false;
-                            secondtour = true;
+                            secondtour = false;
 
                             if (game.joueurcourant == 1) {
                                 game.player2.setDernierCoup(parseInt(req.params.x), parseInt(req.params.y));
@@ -366,8 +369,10 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                                 game.setJoueurcourant(1)
                             }
                             timetour = new Date().getTime();
-                            res.sendStatus(200);
-                        } else if (firsttour == false && secondtour == true && parseInt(req.params.x) > 5 && parseInt(req.params.x) < 13 && parseInt(req.params.y) > 5 && parseInt(req.params.y) < 13) {
+                            return res.sendStatus(200);
+                        } else if (firsttour == false && secondtour == true && (((parseInt(req.params.x) < 6 || parseInt(req.params.x) > 12) && (parseInt(req.params.y) < 6 || parseInt(req.params.y) > 12)))){
+                            console.log("pass");
+                            secondtour=false;
                             var endtour = new Date().getTime();
                             if (parseInt(endtour) - parseInt(timetour) <= 12000) {
                                 game.incrTour();
@@ -382,7 +387,7 @@ router.get('/play/:x/:y/:idJoueur', function(req, res, next) {
                                     game.setJoueurcourant(1)
                                 }
                                 timetour = new Date().getTime();
-                                res.sendStatus(200);
+                                return res.sendStatus(200);
                             } else {
                                 game.setfinpartie();
                                 if (game.joueurcourant == 1) {
