@@ -120,7 +120,7 @@
         circleSeconds = new Kinetic.Shape({
             drawFunc: function(context) {
                 var seconds_width = $('#' + settings.selectors.canvas_seconds_opt).width()
-                var radius = seconds_width / 2 - settings.seconds.borderWidth / 2;
+                var radius = seconds_width / settings.seconds.borderWidth / 2;
                 var x = seconds_width / 2;
                 var y = seconds_width / 2;
 
