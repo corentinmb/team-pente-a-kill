@@ -102,3 +102,21 @@
   -ms-flex-align: center;
   align-items: center;
 }
+#contenuFinPartie{
+  color: white;
+  text-align: center;
+}
+.modal{
+  background-color: rgba(255,255,255,0.8) !important;
+  color: white !important;
+  text-align: center;
+}
+.modal .modal-content{
+  padding: 24px !important;
+  padding-bottom: 50px !important;
+}
+.win_svg{
+  width: 50%;
+  margin-top: -70px;
+  margin-bottom: -50px;
+}
