@@ -19,7 +19,7 @@
                 <div class="col s3 player1">
                     <img src="/stylesheets/img/player1.svg" alt="PLAYER ONE">
 
-                    <h3> player1 </h3>
+                    <h3 id="player1"></h3>
                 </div>
                 <div class="col s6 counter">
                     <div class="countdown countdown-container container">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col s3 player2">
 
-                    <h3> player2 </h3>
+                    <h3 id="player2"></h3>
                     <img src="/stylesheets/img/player2.svg" alt="PLAYER TWO">
                 </div>
             </div>
@@ -87,6 +87,7 @@
             </div>
         </div>
     </section>
+    <a class="waves-effect waves-light btn btnModal" href="#modalFinPartie" style="display: none;">Modal</a>
     <div id="modalFinPartie" class="modal">
         <div class="modal-content">
             <h4 id="contenuFinPartie"></h4>
@@ -101,6 +102,11 @@
     <script type="text/javascript" src="/Library/js/countdownMinute.js"></script>
     <script type="text/javascript" src="/Library/js/jquery.final-countdown.js"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+        });
+
         $('.countdown').final_countdown({
             // 'start': 1491913548,
             // 'end': 1491913558,
@@ -142,15 +148,15 @@
                 var row = $('<tr></tr>');
                 $(rowData).each(function(j, cellData) {
                     if (cellData == 0)
-                        if (i == 6 && j == 6 || i == 6 && j == 12 || i == 12 && j == 6 || i == 12 && j == 12) {
-                            row.append($('<td class="case" onClick="clickOnCell(' + i + ',' + j + ')"><img src="/stylesheets/img/background-dot.jpg"/></td>'));
+                        if (j == 6 && i == 6 || j == 6 && i == 12 || j == 12 && i == 6 || j == 12 && i == 12) {
+                            row.append($('<td class="case" onClick="clickOnCell(' + j + ',' + i + ')"><img src="/stylesheets/img/background-dot.jpg"/></td>'));
                         } else {
-                            row.append($('<td class="case" onClick="clickOnCell(' + i + ',' + j + ')"><img src="/stylesheets/img/background.jpg"/></td>'));
+                            row.append($('<td class="case" onClick="clickOnCell(' + j + ',' + i + ')"><img src="/stylesheets/img/background.jpg"/></td>'));
                         }
                     if (cellData == 1)
-                        row.append($('<td class="case" onClick="clickOnCell(' + i + ',' + j + ')"><img src="/stylesheets/img/black.jpg"/></td>'));
+                        row.append($('<td class="case" onClick="clickOnCell(' + j + ',' + i + ')"><img src="/stylesheets/img/black.jpg"/></td>'));
                     if (cellData == 2)
-                        row.append($('<td class="case" onClick="clickOnCell(' + i + ',' + j + ')"><img src="/stylesheets/img/white.jpg"/></td>'));
+                        row.append($('<td class="case" onClick="clickOnCell(' + j + ',' + i + ')"><img src="/stylesheets/img/white.jpg"/></td>'));
                 });
                 table.append(row);
             });
@@ -172,11 +178,9 @@
                 $('#valueTJ2').html(mydata.nbTenaillesJ2);
 
                 if (mydata.finPartie) {
-                    $('#modalFinPartie').modal('open');
+
+                    $('.btnModal').click();
                     $('#contenuFinPartie').html(mydata.detailFinPartie);
-                    // window.onload = function() {
-                    //     $('.modalFinPartie').click();
-                    // };
                 }
             } else {
                 $("#whoPlays").html("<div class='toast'>En attente d'un autre joueur...</div>");
