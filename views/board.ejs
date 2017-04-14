@@ -102,11 +102,10 @@
     <script type="text/javascript" src="/Library/js/countdownMinute.js"></script>
     <script type="text/javascript" src="/Library/js/jquery.final-countdown.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
-        document.getElementsByClassName('btnModal').onclick = function func(){
+        $(document).ready(function(){
+          // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal').modal();
-        }
-      }
+        });
 
         $('.countdown').final_countdown({
             // 'start': 1491913548,
