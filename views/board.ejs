@@ -16,7 +16,8 @@
           <div class="row">
             <div class="col s3 player1">
               <img src="/stylesheets/img/player1.svg" alt="PLAYER ONE">
-              <h3>IA Player 1</h3>
+
+              <h3> player1 </h3>
             </div>
             <div class="col s6 counter">
               <div class="countdown countdown-container container">
@@ -61,12 +62,17 @@
                 </div>
             </div>
             <div class="col s3 player2">
-              <h3>IA Player 2</h3>
+
+              <h3> player2 </h3>
               <img src="/stylesheets/img/player2.svg" alt="PLAYER TWO">
             </div>
           </div>
         </div>
       </nav>
+      <div class="ten">
+        <p class="nbCoupJ1">Tenailles: </p>
+        <p class="nbCoupJ2">Tenailles: </p>
+      </div>
       <section class="boardSection">
         <div id="whoPlays"></div>
         <div class="row">
@@ -79,6 +85,20 @@
           </div>
         </div>
       </section>
+      <a class="waves-effect waves-light btn" href="#modalWin" style="display:none">l</a>
+        <div id="modalWin" class="modal">
+          <div class="modal-content">
+            <h4>WIN</h4>
+          </div>
+        </div>
+      <!-- <div class="lose">
+        <div id="modalLose" class="modal">
+          <div class="modal-content">
+            <h4>LOSE</h4>
+          </div>
+        </div>
+      </div> -->
+      </div>
 
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -101,7 +121,7 @@
             'nowS': 1491913618
         });
         function refreshData(callback) {
-            // var intervalHolder = setInterval(function() {
+            var intervalHolder = setInterval(function() {
                 $.ajax({
                     url: "http://" + window.location.host + "/turn/" + <%= id %>,
                     success: function(data) {
@@ -112,7 +132,7 @@
                         window.location.href = "http://" + window.location.host;
                     }
                 });
-            // }, 500); //0.5 seconds
+            }, 500); //0.5 seconds
         }
         function clickOnCell(i, j) {
             $.ajax({
@@ -153,6 +173,16 @@
             }
         }
         refreshData(setData);
+        window.onload = function() {
+          $('#modalWin').click();
+        };
+        $('.modal').modal('open');
+        // if(mydata.status == 4){
+        //   window.onload = function() {
+        //     $('.lose').click();
+        //   };
+        //   $('.modalLose').modal();
+        // }
       </script>
     </body>
 </html>
