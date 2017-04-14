@@ -26,7 +26,7 @@
 }
 
 .toast{
-  border-radius: 2px;
+    border-radius: 2px;
     top: -65px !important;
     width: auto;
     clear: both;
@@ -61,4 +61,44 @@
   display: flex;
   justify-content: center;
   margin-top: -60px;
+}
+.ten{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: -65px;
+  color: white;
+}
+.ten .nbCoupJ1{
+  border-radius: 2px;
+  clear: both;
+  position: relative;
+  height: auto;
+  min-height: 48px;
+  line-height: 1.5em;
+  word-break: break-all;
+  background-color: rgba(255,255,255,0.3) !important;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.ten .nbCoupJ2{
+  border-radius: 2px;
+  clear: both;
+  position: relative;
+  height: auto;
+  min-height: 48px;
+  line-height: 1.5em;
+  word-break: break-all;
+  background-color: rgba(255,255,255,0.3) !important;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
