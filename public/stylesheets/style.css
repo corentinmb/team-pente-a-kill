@@ -1,29 +1,3 @@
-/*
-
-a {
-  color: #00B7FF;
-}
-
-table {
-  background: rgba(255,255,255,0.3);
-  background:#18415F;
-  width: 20% !important;
-  height: 200px;
-}
-
-td {
-    width: 0px;
-    height: 0px;
-    text-align: center;
-    cursor: pointer;
-}
-td:hover{
-  background: none;
-}
-.boardStyle{
-  width: 100px;
-  height: 100px
-}*/
 #board{
   margin-top: -30px;
 }
@@ -52,8 +26,8 @@ td:hover{
 }
 
 .toast{
-  border-radius: 2px;
-    top: 35px;
+    border-radius: 2px;
+    top: -65px !important;
     width: auto;
     clear: both;
     margin-top: 10px;
@@ -87,4 +61,44 @@ td:hover{
   display: flex;
   justify-content: center;
   margin-top: -60px;
+}
+.ten{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: -65px;
+  color: white;
+}
+.ten .nbCoupJ1{
+  border-radius: 2px;
+  clear: both;
+  position: relative;
+  height: auto;
+  min-height: 48px;
+  line-height: 1.5em;
+  word-break: break-all;
+  background-color: rgba(255,255,255,0.3) !important;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.ten .nbCoupJ2{
+  border-radius: 2px;
+  clear: both;
+  position: relative;
+  height: auto;
+  min-height: 48px;
+  line-height: 1.5em;
+  word-break: break-all;
+  background-color: rgba(255,255,255,0.3) !important;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }

@@ -16,11 +16,12 @@
     <nav>
         <div class="nav-wrapper">
             <div class="row">
-                <div class="col s4 player1">
+                <div class="col s3 player1">
                     <img src="/stylesheets/img/player1.svg" alt="PLAYER ONE">
-                    <h3 id="player1"></h3>
+
+                    <h3> player1 </h3>
                 </div>
-                <div class="col s4 counter">
+                <div class="col s6 counter">
                     <div class="countdown countdown-container container">
                         <div class="clock row">
                             <div class="clock-item clock-seconds countdown-time-value col-sm-6 col-md-3">
@@ -62,13 +63,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s4 player2">
-                    <h3 id="player2"></h3>
+                <div class="col s3 player2">
+
+                    <h3> player2 </h3>
                     <img src="/stylesheets/img/player2.svg" alt="PLAYER TWO">
                 </div>
             </div>
         </div>
     </nav>
+    <div class="ten">
+        <p class="nbCoupJ1">Tenailles: <span id="valueTJ1"></span></p>
+        <p class="nbCoupJ2">Tenailles: <span id="valueTJ2"></span></p>
+    </div>
     <section class="boardSection">
         <div id="whoPlays"></div>
         <div class="row">
@@ -81,6 +87,12 @@
             </div>
         </div>
     </section>
+    <div id="modalFinPartie" class="modal">
+        <div class="modal-content">
+            <h4 id="contenuFinPartie"></h4>
+        </div>
+    </div>
+    </div>
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -155,6 +167,17 @@
                     $("#whoPlays").html("<div class='toast'>A toi de jouer !</div>");
                 else
                     $("#whoPlays").html("<div class='toast'>Merci de patienter...</div>");
+
+                $('#valueTJ1').html(mydata.nbTenaillesJ1);
+                $('#valueTJ2').html(mydata.nbTenaillesJ2);
+
+                if (mydata.finPartie) {
+                    $('#modalFinPartie').modal('open');
+                    $('#contenuFinPartie').html(mydata.detailFinPartie);
+                    // window.onload = function() {
+                    //     $('.modalFinPartie').click();
+                    // };
+                }
             } else {
                 $("#whoPlays").html("<div class='toast'>En attente d'un autre joueur...</div>");
             }
