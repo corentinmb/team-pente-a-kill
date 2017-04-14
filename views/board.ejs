@@ -161,8 +161,9 @@
         }
         function setData(result) {
             var mydata = eval(result);
-            if (mydata.tableau.board) {
-                var table = arrayToTable(mydata.tableau.board);
+            if (mydata) {
+                var table = arrayToTable(mydata.tableau);
+                getInfos(setInfos);
                 $("#board").html(table);
                 if (mydata.status == 1)
                     $("#whoPlays").html("<div class='toast'>A toi de jouer !</div>");
@@ -172,6 +173,24 @@
                 $("#whoPlays").html("<div class='toast'>En attente d'un autre joueur...</div>");
             }
         }
+
+        function setInfos(result) {
+            var mydata = eval(result);
+            if (mydata) {
+                $("#player1").html(result.player1);
+                $("#player2").html(result.player2);
+            }
+        }
+
+        function getInfos(callback) {
+            $.ajax({
+                url: "http://" + window.location.host + "/infos",
+                success: function(data) {
+                    callback(data);
+                }
+            });
+        }
+
         refreshData(setData);
         window.onload = function() {
           $('#modalWin').click();

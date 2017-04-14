@@ -459,7 +459,17 @@ router.get('/turn/:idJoueur', function(req, res, next) {
     }
 });
 
-/* GET turn */
+
+
+/* GET infos */
+router.get('/infos', function(req, res, next) {
+  res.json({
+    "player1": game.player1.nomJoueur,
+    "player2": game.player2.nomJoueur,
+  })
+});
+
+/* GET reset */
 router.get('/reset', function(req, res, next) {
     game = null;
     id1 = null;
