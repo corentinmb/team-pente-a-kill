@@ -153,12 +153,12 @@ function move(b) {
             if (b.numTour == 0) {
                                 log.info("Tour 1: Je joue au centre...")
                 play(9, 9);
-            } else if (b.numTour == 1) {
-                var x = getRand(6, 12);
-                var y = getRand(6, 12);
+            } else if (b.numTour == 2) {
+                var x = getRand(0, 5);
+                var y = getRand(0, 5);
                 log.info("Tour 2: Je joue dans le cadre du milieu en " + x + ";" + y + "...")
                 play(x, y);
-            } else if (b.numTour > 1) {
+            } else if (b.numTour > 1 || b.numTour == 1) {
                                                                 var move = brain();
                 IAconfig.pieces[move] = IAconfig.currentPlayer;
                 move = parseCoord(move);
