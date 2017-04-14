@@ -16,11 +16,11 @@ Board.prototype.initBoard = function(){
 }
 
 Board.prototype.setPion = function(x,y,numjoueur){
-	this.board[y][x] = numjoueur;
+	this.board[x][y] = numjoueur;
 }
 
 Board.prototype.pionHere = function(x,y){
-	if (this.board[y][x] == 0){
+	if (this.board[x][y] == 0){
 		return false;
 	}
 	else{
@@ -29,11 +29,11 @@ Board.prototype.pionHere = function(x,y){
 }
 
 Board.prototype.getPion = function(x,y){
-	return this.board[parseInt(y)][parseInt(x)];
+	return this.board[parseInt(x)][parseInt(y)];
 }
 
 Board.prototype.deletePion = function(x,y){
-	this.board[y][x] = 0;
+	this.board[x][y] = 0;
 }
 
 // export the class

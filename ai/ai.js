@@ -52,7 +52,7 @@ var IAconfig = {
         var SIZE = 19;
         for (var i = 0; i < SIZE; i++) {
             for (var j = 0; j < SIZE; j++) {
-                this.pieces[this.coordString(i, j)] = this.dataTurn.tableau[j][i];
+                this.pieces[this.coordString(i, j)] = this.dataTurn.tableau[i][j];
             }
         }
             }
